@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+@layer base {
+  body {
+    @apply antialiased;
+  }
+}
+
+.prose {
+  @apply text-zinc-800 leading-relaxed;
+}
+
+.prose h1 { @apply text-3xl font-bold mb-6 mt-8; }
+.prose h2 { @apply text-2xl font-bold mb-4 mt-6; }
+.prose h3 { @apply text-xl font-bold mb-3 mt-5; }
+.prose p { @apply mb-4; }
+.prose ul { @apply list-disc pl-6 mb-4; }
+.prose ol { @apply list-decimal pl-6 mb-4; }
+.prose li { @apply mb-1; }
+.prose code { @apply bg-zinc-100 px-1.5 py-0.5 rounded font-mono text-sm; }
+.prose pre { @apply bg-zinc-900 text-zinc-100 p-4 rounded-xl overflow-x-auto mb-4 font-mono text-sm; }
+.prose blockquote { @apply border-l-4 border-zinc-200 pl-4 italic text-zinc-500 mb-4; }
