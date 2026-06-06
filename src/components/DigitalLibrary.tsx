@@ -1,0 +1,221 @@
+import React, { useState, useEffect, useMemo } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+import { Search, FileText, ExternalLink, BookOpen, X, Layers } from 'lucide-react';
+import { LIBRARY_DATA, STATIC_PDF_NOTES } from '../data/libraryData';
+import { db } from '../firebase';
+import { collection, onSnapshot } from 'firebase/firestore';
+
+interface LibraryItem {
+  title: string;
+  url: string;
+  division: 'Related Books & Notes' | 'PDF Notes' | 'Student Notes';
+}
+
+export const DigitalLibrary: React.FC = () => {
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedDivision, setSelectedDivision] = useState<string>('All');
+  const [studentNotes, setStudentNotes] = useState<LibraryItem[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  // Real-time listener for student contributed notes
+  useEffect(() => {
+    const q = collection(db, 'student_notes');
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const docs = snapshot.docs.map(docSnapshot => {
+        const data = docSnapshot.data();
+        return {
+          title: data.title || 'Untitled Notes',
+          url: data.pdfUrl || '',
+          division: 'Student Notes' as const
+        };
+      }).filter(item => !!item.url);
+      setStudentNotes(docs);
+      setLoading(false);
+    }, (error) => {
+      console.error('Error fetching student notes in library:', error);
+      setLoading(false);
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  const combinedLibrary = useMemo(() => {
+    // 1. Static Related Books & Notes
+    const books = LIBRARY_DATA.map(item => ({
+      title: item.title,
+      url: item.url,
+      division: 'Related Books & Notes' as const
+    }));
+
+    // 2. Static PDF Notes
+    const pdfNotes = STATIC_PDF_NOTES.map(item => ({
+      title: item.title,
+      url: item.url,
+      division: 'PDF Notes' as const
+    }));
+
+    const allItems = [...pdfNotes, ...books, ...studentNotes];
+
+    // Deduplicate by normalized URL to keep the repository pristinely neat
+    const seenUrls = new Set<string>();
+    const uniqueItems: LibraryItem[] = [];
+
+    for (const item of allItems) {
+      const normalizedUrl = item.url.trim().toLowerCase();
+      if (!normalizedUrl) continue;
+      if (!seenUrls.has(normalizedUrl)) {
+        seenUrls.add(normalizedUrl);
+        uniqueItems.push(item);
+      }
+    }
+
+    // Sort alphabetically by title
+    return uniqueItems.sort((a, b) => a.title.localeCompare(b.title));
+  }, [studentNotes]);
+
+  const divisions = ['All', 'PDF Notes', 'Related Books & Notes', 'Student Notes'];
+
+  const filteredItems = useMemo(() => {
+    return combinedLibrary.filter(item => {
+      const matchesSearch = item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                          item.division.toLowerCase().includes(searchQuery.toLowerCase());
+      const matchesDivision = selectedDivision === 'All' || item.division === selectedDivision;
+      return matchesSearch && matchesDivision;
+    });
+  }, [combinedLibrary, searchQuery, selectedDivision]);
+
+  return (
+    <div className="space-y-8">
+      {/* Header & Search */}
+      <div className="relative overflow-hidden p-8 lg:p-12 rounded-[3rem] bg-gradient-to-br from-[#1a2540] to-[#0a0f1d] border border-white/10 shadow-2xl">
+        <div className="absolute top-0 right-0 p-12 opacity-10">
+          <BookOpen className="w-64 h-64 text-[#c5a059]" />
+        </div>
+        
+        <div className="relative z-10 max-w-3xl">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="space-y-4"
+          >
+            <h1 className="text-4xl md:text-5xl font-black text-white uppercase tracking-tight">
+              Digital <span className="text-[#c5a059]">Library</span>
+            </h1>
+            <p className="text-zinc-400 text-lg font-medium leading-relaxed">
+              Access Pakistan's most comprehensive repository of military and specialized service exam resources. 
+              Search through hundreds of verified books, core PDF notes, and student contributions.
+            </p>
+          </motion.div>
+
+          <div className="mt-10 relative group">
+            <div className="absolute inset-y-0 left-5 flex items-center pointer-events-none">
+              <Search className="w-5 h-5 text-zinc-500 group-focus-within:text-[#c5a059] transition-colors" />
+            </div>
+            <input
+              type="text"
+              placeholder="Search books, notes, or topics..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full pl-14 pr-6 py-5 bg-white/5 border border-white/10 rounded-2xl text-white placeholder:text-zinc-600 focus:outline-none focus:ring-2 focus:ring-[#c5a059]/50 focus:border-[#c5a059] transition-all text-lg font-medium shadow-inner"
+            />
+            {searchQuery && (
+              <button 
+                onClick={() => setSearchQuery('')}
+                className="absolute inset-y-0 right-5 flex items-center text-zinc-500 hover:text-white transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Filter Section - Filter by Division, not test tag */}
+      <div className="sticky top-0 z-30 -mx-4 px-4 py-3 bg-[#0a0f1d]/80 backdrop-blur-xl border-b border-white/5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <div className="flex overflow-x-auto gap-2 no-scrollbar pb-1">
+          {divisions.map((divName) => (
+            <button
+              key={divName}
+              onClick={() => setSelectedDivision(divName)}
+              className={`flex-shrink-0 px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${
+                selectedDivision === divName 
+                  ? 'bg-[#c5a059] text-black shadow-lg shadow-[#c5a059]/10' 
+                  : 'bg-white/5 text-zinc-500 hover:bg-white/10 hover:text-white border border-white/5'
+              }`}
+            >
+              {divName}
+            </button>
+          ))}
+        </div>
+        
+        <div className="self-start sm:self-auto flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-zinc-500 bg-[#0c1224] border border-white/5 px-4 py-2.5 rounded-xl">
+          <Layers className="w-3.5 h-3.5 text-[#c5a059]" />
+          <span>{filteredItems.length} Files</span>
+        </div>
+      </div>
+
+      {/* Results Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <AnimatePresence mode="popLayout">
+          {filteredItems.map((item, idx) => (
+            <motion.div
+              layout
+              key={item.url + idx}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              whileHover={{ y: -5 }}
+              className="group p-6 rounded-3xl bg-white/5 border border-white/10 hover:border-[#c5a059]/30 hover:bg-white/10 transition-all shadow-xl"
+            >
+              <div className="flex flex-col h-full space-y-4">
+                <div className="flex justify-between items-start">
+                  <div className="p-3 rounded-xl bg-[#c5a059]/10 text-[#c5a059]">
+                    <FileText className="w-6 h-6" />
+                  </div>
+                </div>
+                
+                <div className="flex-1">
+                  <h3 className="text-lg font-bold text-white group-hover:text-[#c5a059] transition-colors line-clamp-2 leading-snug">
+                    {item.title}
+                  </h3>
+                </div>
+
+                <div className="pt-4 flex gap-3">
+                  <a
+                    href={item.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-[#c5a059] text-black font-black text-xs rounded-xl hover:bg-[#d4b16a] transition-all uppercase tracking-widest shadow-lg shadow-[#c5a059]/5"
+                  >
+                    View PDF <ExternalLink className="w-4 h-4" />
+                  </a>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </AnimatePresence>
+      </div>
+
+      {filteredItems.length === 0 && !loading && (
+        <div className="py-20 text-center glass-panel rounded-[3rem] border border-white/10">
+          <Search className="w-16 h-16 text-zinc-700 mx-auto mb-6 opacity-50" />
+          <h3 className="text-2xl font-black text-white uppercase mb-2">No matches found</h3>
+          <p className="text-zinc-500 font-medium">Try broadening your search or choosing a different category.</p>
+          <button 
+            onClick={() => { setSearchQuery(''); setSelectedDivision('All'); }}
+            className="mt-8 px-8 py-4 bg-white/5 border border-white/10 text-white font-black rounded-2xl hover:bg-white/10 transition-all uppercase tracking-widest"
+          >
+            Clear All Filters
+          </button>
+        </div>
+      )}
+
+      {loading && (
+        <div className="py-20 text-center">
+          <div className="w-8 h-8 rounded-full border-2 border-t-[#c5a059] border-white/10 animate-spin mx-auto mb-4" />
+          <p className="text-zinc-500 text-xs font-black uppercase tracking-widest">Synchronizing library resources...</p>
+        </div>
+      )}
+    </div>
+  );
+};

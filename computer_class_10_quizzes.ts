@@ -1,0 +1,62 @@
+export const computerClass10Quizzes = [
+  {
+    exercise: "Chapter 1: Computer Systems",
+    questions: [
+      { q: "What is the brain of the computer?", options: ["Keyboard", "CPU", "Mouse", "Monitor"], correct: 1 },
+      { q: "RAM stands for:", options: ["Read Access Memory", "Random Access Memory", "Run Access Memory", "Read-Only Memory"], correct: 1 },
+      { q: "ROM is used to store:", options: ["Permanent data", "Temporary data", "User files", "Web pages"], correct: 0 },
+      { q: "Which of the following is hardware?", options: ["Operating System", "Spreadsheet software", "RAM", "Database"], correct: 2 },
+      { q: "Which device produces soft copy output?", options: ["Printer", "Monitor", "Scanner", "Keyboard"], correct: 1 },
+      { q: "A byte contains how many bits?", options: ["4", "8", "16", "32"], correct: 1 },
+      { q: "The main function of the CPU is to:", options: ["Store data", "Process data", "Display images", "Connect to the internet"], correct: 1 },
+      { q: "Which component stores data permanently?", options: ["RAM", "ROM", "Cache", "Register"], correct: 1 },
+      { q: "A keyboard is used for:", options: ["Input", "Storage", "Output", "Processing"], correct: 0 },
+      { q: "Which of the following is not an output device?", options: ["Speaker", "Monitor", "Printer", "Mouse"], correct: 3 },
+      { q: "What type of memory is volatile?", options: ["ROM", "RAM", "Hard Disk", "Flash Drive"], correct: 1 },
+      { q: "The ALU stands for:", options: ["Automatic Logic Unit", "Arithmetic and Logic Unit", "Array Logic Unit", "Analog Logic Unit"], correct: 1 },
+      { q: "Secondary storage is used for:", options: ["Temporary storage", "Permanent storage", "Only programs", "Only input"], correct: 1 },
+      { q: "Which of these is a magnetic storage device?", options: ["SSD", "Hard Disk Drive", "USB flash drive", "RAM"], correct: 1 },
+      { q: "Which device converts digital signals to analog?", options: ["Modem", "Router", "Scanner", "Projector"], correct: 0 },
+      { q: "The basic unit of data in a computer is a:", options: ["Word", "Bit", "Byte", "Nibble"], correct: 1 },
+      { q: "The memory that stores BIOS is:", options: ["RAM", "ROM", "Cache", "Virtual Memory"], correct: 1 },
+      { q: "Which memory is fastest?", options: ["RAM", "Hard Disk", "Cache", "ROM"], correct: 2 },
+      { q: "An example of optical storage is:", options: ["HDD", "SSD", "CD/DVD", "Flash Drive"], correct: 2 },
+      { q: "Which device helps to read printed text into a computer?", options: ["Printer", "Scanner", "Monitor", "Keyboard"], correct: 1 },
+      { q: "The CPU consists of two main parts:", options: ["ALU and Control Unit", "RAM and ROM", "Input and Output", "Motherboard and Keyboard"], correct: 0 },
+      { q: "Which of these stores the currently running program?", options: ["ROM", "RAM", "Hard Disk", "Printer"], correct: 1 },
+      { q: "Which of the following is not permanent storage?", options: ["ROM", "Hard Disk", "SSD", "RAM"], correct: 3 },
+      { q: "Which device is used to point and click?", options: ["Keyboard", "Mouse", "Scanner", "Printer"], correct: 1 },
+      { q: "What is the function of the control unit in CPU?", options: ["Perform calculations", "Direct operations", "Store programs", "Print results"], correct: 1 }
+    ]
+  },
+  {
+    exercise: "Chapter 2: Programming Fundamentals (Python)",
+    questions: [
+      { q: "What is the extension of a Python file?", options: [".txt", ".exe", ".py", ".docx"], correct: 2 },
+      { q: "Which function is used to display output in Python?", options: ["input()", "print()", "output()", "display()"], correct: 1 },
+      { q: "Which symbol is used for assignment in Python?", options: ["==", "=", ":=", "=>"], correct: 1 },
+      { q: "What does # indicate in Python?", options: ["Start of program", "Comment", "Loop", "Function"], correct: 1 },
+      { q: "Which function is used to take user input?", options: ["input()", "get()", "scanf()", "read()"], correct: 0 },
+      { q: "Python is which type of language?", options: ["Compiled", "Interpreted", "Machine", "Assembly"], correct: 1 },
+      { q: "Which of the following is a valid variable name?", options: ["1var", "_name", "@age", "var-name"], correct: 1 },
+      { q: "Which of the following is a keyword in Python?", options: ["var", "function", "def", "printf"], correct: 2 },
+      { q: "What is the output of print(2 + 3)?", options: ["23", "5", "Error", "2 + 3"], correct: 1 },
+      { q: "Which data type holds text?", options: ["int", "float", "str", "bool"], correct: 2 },
+      { q: "What is the data type of 10.5?", options: ["int", "float", "str", "bool"], correct: 1 },
+      { q: "What will type('Hello') return?", options: ["int", "str", "float", "bool"], correct: 1 },
+      { q: "What is the output of print(len('abc'))?", options: ["3", "2", "0", "4"], correct: 0 },
+      { q: "Which operator is used for multiplication?", options: ["*", "/", "+", "-"], correct: 0 },
+      { q: "What will print(10 % 3) output?", options: ["1", "3", "0", "10"], correct: 0 },
+      { q: "What is True and False in Python?", options: ["Strings", "Boolean", "Numbers", "List"], correct: 1 },
+      { q: "Which loop runs until a condition is false?", options: ["for", "while", "do-while", "repeat"], correct: 1 },
+      { q: "What keyword is used to end a loop early?", options: ["stop", "exit", "break", "end"], correct: 2 },
+      { q: "What keyword continues to next iteration?", options: ["skip", "next", "continue", "pass"], correct: 2 },
+      { q: "What is the correct way to start a function?", options: ["function myFunc():", "def myFunc():", "func myFunc():", "start myFunc():"], correct: 1 },
+      { q: "Which collection stores key-value pairs?", options: ["list", "tuple", "dict", "set"], correct: 2 },
+      { q: "What is the index of the first element in a list?", options: ["0", "1", "-1", "2"], correct: 0 },
+      { q: "What is the result of 'a' * 3?", options: ["aaa", "a3", "Error", "3a"], correct: 0 },
+      { q: "Which statement is used to check conditions?", options: ["loop", "if", "input", "function"], correct: 1 },
+      { q: "What is output of print(5 > 3)?", options: ["True", "False", "1", "Error"], correct: 0 }
+    ]
+  }
+];

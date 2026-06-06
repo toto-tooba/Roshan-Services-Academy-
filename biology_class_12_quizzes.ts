@@ -1,0 +1,62 @@
+export const biologyClass12Quizzes = [
+  {
+    exercise: "Chapter 1: Digestive System of Man",
+    questions: [
+      { q: "The primary function of saliva is not digestion but:", options: ["Chemical breakdown of starch", "Mechanical lubrication to facilitate swallowing", "Activation of pepsinogen", "Absorption of nutrients"], correct: 1 },
+      { q: "Which one of the following correctly matches an enzyme with its substrate?", options: ["Maltase — Lipids", "Trypsin — Proteins", "Amylase — Cellulose", "Lipase — Carbohydrates"], correct: 1 },
+      { q: "The cephalic phase of digestion is triggered by:", options: ["Gastrin release after food enters stomach", "Sight, smell, or thought of food", "Distension of small intestine", "Presence of acid in the duodenum"], correct: 1 },
+      { q: "Which structure prevents food from entering the nasal cavity during swallowing?", options: ["Glottis", "Uvula", "Epiglottis", "Soft palate"], correct: 3 },
+      { q: "The acidity (low pH) of gastric juice is essential for:", options: ["Neutralization of chyme", "Activation of salivary amylase", "Denaturation of proteins", "Emulsification of fats"], correct: 2 },
+      { q: "Pepsinogen is activated to pepsin by:", options: ["Enterokinase", "Hydrochloric acid", "Bile salts", "Trypsin"], correct: 1 },
+      { q: "Bile salts aid in digestion by:", options: ["Hydrolyzing proteins", "Emulsifying fats into micelles", "Activating lipase", "Lowering pH of chyme"], correct: 1 },
+      { q: "The brush border enzymes are located on:", options: ["Golgi apparatus", "Microvilli of enterocytes", "Basement membrane of mucosa", "Crypts of Lieberkühn"], correct: 1 },
+      { q: "The main site for absorption of amino acids and simple sugars is the:", options: ["Stomach", "Duodenum", "Ileum", "Large intestine"], correct: 2 },
+      { q: "Which one of these is NOT absorbed in the small intestine?", options: ["Glucose", "Vitamins", "Fatty acids", "Urea"], correct: 3 },
+      { q: "Gastric inhibitory peptide (GIP) is released from the small intestine in response to:", options: ["Fat and glucose in the duodenum", "Acidic chyme in colon", "Protein in stomach", "Distension of stomach"], correct: 0 },
+      { q: "The intrinsic factor produced by stomach is essential for:", options: ["Iron absorption", "Vitamin B12 absorption", "Lipid digestion", "Calcium absorption"], correct: 1 },
+      { q: "Enterokinase activates:", options: ["Trypsinogen to trypsin", "Pepsinogen to pepsin", "Amylase to maltase", "Lipase to colipase"], correct: 0 },
+      { q: "Zollinger‑Ellison syndrome causes increased gastric secretion due to:", options: ["Excess HCl production", "Gastrin‑producing tumor", "Pepsin deficiency", "Bile obstruction"], correct: 1 },
+      { q: "Overproduction of bile pigments in blood leads to:", options: ["Steatorrhea", "Jaundice", "Achlorhydria", "Ulcers"], correct: 1 },
+      { q: "CCK (cholecystokinin) stimulates:", options: ["Gastric acid secretion", "Gallbladder contraction & pancreatic enzyme release", "Insulin secretion", "Bile acid synthesis"], correct: 1 },
+      { q: "Which hormone decreases gastric motility and secretion?", options: ["Gastrin", "Secretin", "CCK", "Ghrelin"], correct: 1 },
+      { q: "Pancreatic juice is isotonic and has:", options: ["More acidic pH", "High bicarbonate concentration", "High pepsin content", "No enzymes"], correct: 1 },
+      { q: "Intestinal phase of digestion begins when:", options: ["Food enters mouth", "Chyme enters small intestine", "Bolus reaches large intestine", "Gastric secretions peak"], correct: 1 },
+      { q: "Which cell type secretes hydrochloric acid in the stomach?", options: ["Chief cells", "Parietal cells", "Goblet cells", "Enteroendocrine cells"], correct: 1 },
+      { q: "Short‑chain fatty acids are absorbed via:", options: ["Blood capillaries", "Lacteals (lymphatic vessels)", "Passive diffusion into colon", "Exocytosis"], correct: 1 },
+      { q: "Water absorption in the intestine occurs mainly in the:", options: ["Duodenum", "Jejunum", "Ileum", "Large intestine"], correct: 3 },
+      { q: "Hepatic portal vein is important because it:", options: ["Carries oxygenated blood to liver", "Transports nutrients from intestine to liver", "Drains bile into duodenum", "Exchanges gases in hepatic tissue"], correct: 1 },
+      { q: "Which vitamin is synthesized by gut bacteria and then absorbed?", options: ["Vitamin A", "Vitamin D", "Vitamin K", "Vitamin C"], correct: 2 },
+      { q: "Which of the following increases the surface area of the small intestine for absorption?", options: ["Plicae circularis only", "Villi only", "Microvilli only", "All of these"], correct: 3 }
+    ]
+  },
+  {
+    exercise: "Chapter 2: Blood Circulatory System of Man",
+    questions: [
+      { q: "The main reason why the left ventricle has a thicker muscular wall than the right ventricle is:", options: ["Higher oxygen content", "Need to pump blood at higher pressure to the body", "Need to pump blood only to lungs", "Lower workload"], correct: 1 },
+      { q: "Which structure prevents backflow of blood into the left atrium?", options: ["Tricuspid valve", "Pulmonary valve", "Mitral (bicuspid) valve", "Aortic valve"], correct: 2 },
+      { q: "Which is true regarding pulmonary and systemic circulation?", options: ["Both pump equal volumes of blood per minute", "Pulmonary circulation operates at higher pressure", "Systemic circulation carries deoxygenated blood", "Pulmonary capillaries are within body tissues"], correct: 0 },
+      { q: "The coronary arteries:", options: ["Supply blood to the lungs", "Originate from superior vena cava", "Supply cardiac muscle with oxygenated blood", "Carry deoxygenated blood to the right atrium"], correct: 2 },
+      { q: "Which is not a formed element of blood?", options: ["Erythrocytes", "Plasma proteins", "Platelets", "Leukocytes"], correct: 1 },
+      { q: "Which statement about red blood cells (RBCs) is correct?", options: ["They are nucleated in humans", "They contain mitochondria", "They transport carbon dioxide as bicarbonate", "They synthesize plasma proteins"], correct: 2 },
+      { q: "A high leukocyte count with many neutrophils indicates:", options: ["Viral infection", "Bacterial infection", "Allergic reaction", "Blood clotting disorder"], correct: 1 },
+      { q: "Which blood component is most directly responsible for blood clotting?", options: ["Erythrocytes", "Neutrophils", "Platelets", "Plasma"], correct: 2 },
+      { q: "Plasma proteins play a key role in:", options: ["Muscle contraction", "Osmotic balance & immunity", "Neural transmission", "Bone formation"], correct: 1 },
+      { q: "Arteries differ from veins primarily in that arteries:", options: ["Contain valves", "Have thicker walls", "Carry only deoxygenated blood", "Have larger lumens"], correct: 1 },
+      { q: "The branch of the aorta that supplies the head and neck is:", options: ["Pulmonary artery", "Coronary artery", "Carotid artery", "Subclavian vein"], correct: 2 },
+      { q: "During ventricular systole:", options: ["Atria contract", "AV valves open", "Semilunar valves open", "Blood flows from ventricles to atria"], correct: 2 },
+      { q: "The heart’s pacemaker is:", options: ["AV node", "Purkinje fibers", "SA node", "Bundle of His"], correct: 2 },
+      { q: "Which wave in the ECG correlates with atrial contraction?", options: ["P‑wave", "QRS complex", "T‑wave", "U‑wave"], correct: 0 },
+      { q: "Blood pressure is highest in the:", options: ["Capillaries", "Veins", "Arteries", "Right atrium"], correct: 2 },
+      { q: "A decrease in arterial elasticity is most likely to cause:", options: ["Lower blood pressure", "Increased pulse pressure", "Decreased heart rate", "Reduced cardiac output"], correct: 1 },
+      { q: "Which vessel is the primary site of nutrient and gas exchange?", options: ["Vein", "Artery", "Capillary", "Lymphatic vessel"], correct: 2 },
+      { q: "Which of the following increases risk of atherosclerosis?", options: ["High HDL cholesterol", "High LDL cholesterol", "High oxygen in blood", "Regular exercise"], correct: 1 },
+      { q: "If the SA node fails, which structure can take over pacing the heart?", options: ["Aortic valve", "AV node", "Pulmonary vein", "Mitral valve"], correct: 1 },
+      { q: "Which hormone increases heart rate and force of contraction?", options: ["Insulin", "Thyroxine", "Adrenaline", "Glucagon"], correct: 2 },
+      { q: "Why is it dangerous if a clot forms in a coronary artery?", options: ["Causes hypertension", "Restricts blood supply to heart muscle", "Increases RBC production", "Decreases oxygen binding in lungs"], correct: 1 },
+      { q: "Which of the following describes diastole?", options: ["Ventricular contraction", "Atrial contraction", "Heart muscle relaxation", "Semilunar valve closure only"], correct: 2 },
+      { q: "Venous blood returning to the heart from the lower body enters the heart through the:", options: ["Pulmonary vein", "Aorta", "Superior vena cava", "Inferior vena cava"], correct: 3 },
+      { q: "A drop in blood pressure triggers which response?", options: ["Decreased heart rate", "Vasoconstriction", "Increased capillary diameter", "Decreased respiration"], correct: 1 },
+      { q: "Which cell type in blood produces antibodies?", options: ["RBC", "Platelet", "B‑lymphocyte", "Eosinophil"], correct: 2 }
+    ]
+  }
+];

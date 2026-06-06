@@ -1,0 +1,62 @@
+export const computerClass11Quizzes = [
+  {
+    exercise: "Chapter 1: Computer Systems",
+    questions: [
+      { q: "What are the two main parts of a computer system?", options: ["CPUs and Printers", "Software and Hardware", "Mouse and Keyboard", "USB and Monitor"], correct: 1 },
+      { q: "Which part is the tangible physical components of a computer?", options: ["Firmware", "Software", "Hardware", "Middleware"], correct: 2 },
+      { q: "The CPU stands for:", options: ["Central Processing Unit", "Central Power Unit", "Computer Process Unit", "Central Program Utility"], correct: 0 },
+      { q: "RAM is a type of:", options: ["Secondary storage", "Volatile memory", "Permanent memory", "Optical memory"], correct: 1 },
+      { q: "Which memory is permanent and cannot be easily changed?", options: ["RAM", "ROM", "Cache", "Register"], correct: 1 },
+      { q: "What does ROM stand for?", options: ["Read Only Memory", "Random Operative Memory", "Run Only Memory", "Read Operating Memory"], correct: 0 },
+      { q: "Binary data consists of which digits?", options: ["0 and 1", "1 and 2", "2 and 3", "A and B"], correct: 0 },
+      { q: "A bit represents:", options: ["2 bytes", "1 byte", "1 bit", "Binary digit"], correct: 2 },
+      { q: "A group of 8 bits is called:", options: ["Word", "Nibble", "Byte", "Kilobyte"], correct: 2 },
+      { q: "Which device is used to display output?", options: ["Keyboard", "Printer", "Monitor", "Scanner"], correct: 2 },
+      { q: "Software that manages computer hardware and software resources is called:", options: ["Application Software", "Operating System", "Utility", "Compiler"], correct: 1 },
+      { q: "An example of system software is:", options: ["Microsoft Word", "Windows OS", "Photoshop", "Google Chrome"], correct: 1 },
+      { q: "Which of the following is application software?", options: ["BIOS", "Antivirus", "Linux Kernel", "Notepad"], correct: 3 },
+      { q: "Data processed into meaningful form is called:", options: ["Information", "Raw data", "Signals", "Bits"], correct: 0 },
+      { q: "Who uses the computer system?", options: ["Software", "Processor", "User", "Hardware"], correct: 2 },
+      { q: "Analogue signals are:", options: ["Digital", "Continuous", "Discrete", "Binary"], correct: 1 },
+      { q: "Digital computers use:", options: ["Analogue signals", "Audio signals", "Binary numbers", "Analog numbers"], correct: 2 },
+      { q: "Logic gates are used in:", options: ["Memory only", "Arithmetic only", "CPU only", "Digital circuits"], correct: 3 },
+      { q: "The AND gate outputs 1 when:", options: ["Any input is 1", "All inputs are 1", "All inputs are 0", "One input is 0"], correct: 1 },
+      { q: "The OR gate outputs 1 when:", options: ["Any input is 1", "All inputs are 0", "No input is 1", "Inputs are equal"], correct: 0 },
+      { q: "The NOT gate performs:", options: ["Multiplication", "No change", "Inversion", "Addition"], correct: 2 },
+      { q: "A network topology refers to:", options: ["Software network", "Physical layout of network", "Database design", "CPU design"], correct: 1 },
+      { q: "A phase where software requirements are gathered is:", options: ["Coding", "Testing", "Planning", "Analysis"], correct: 3 },
+      { q: "In SDLC, coding phase is also called:", options: ["Design", "Implementation", "Testing", "Development"], correct: 1 },
+      { q: "Maintenance phase involves:", options: ["Deleting programs", "Updating software", "Designing hardware", "Writing manuals"], correct: 1 }
+    ]
+  },
+  {
+    exercise: "Chapter 2: Computational Thinking & Algorithms",
+    questions: [
+      { q: "What is computational thinking?", options: ["Buying computers", "Breaking down problems to solve them", "Writing essays", "Drawing pictures"], correct: 1 },
+      { q: "Which technique breaks a problem into smaller parts?", options: ["Pseudocode", "Abstraction", "Decomposition", "IPO model"], correct: 2 },
+      { q: "Pattern recognition helps to:", options: ["Ignore all patterns", "Find similarities in problems", "Delete data", "Make hardware faster"], correct: 1 },
+      { q: "Abstraction means:", options: ["Focusing on irrelevant details", "Ignoring necessary information", "Focusing on important details", "Breaking into parts"], correct: 2 },
+      { q: "An algorithm is:", options: ["A computer brand", "Step-by-step solution to a problem", "Random data", "A type of memory"], correct: 1 },
+      { q: "A flowchart is used to:", options: ["Make coffee", "Visually represent a process", "Write Python code", "Store data"], correct: 1 },
+      { q: "The IPO model stands for:", options: ["Input, Process, Output", "Input, Program, Output", "Internal, Process, Override", "Insert, Print, Output"], correct: 0 },
+      { q: "Pseudocode is:", options: ["Real code", "Plain-language logic of a solution", "A hardware part", "Binary digits"], correct: 1 },
+      { q: "Which of the following is NOT a computational thinking technique?", options: ["Decomposition", "Pattern recognition", "Abstraction", "Cooking"], correct: 3 },
+      { q: "The first step in problem solving is:", options: ["Testing the solution", "Understanding the problem", "Drawing a flowchart", "Writing output"], correct: 1 },
+      { q: "A computational artifact refers to:", options: ["A physical tool", "Any product of computational thinking", "Broken hardware", "CPU registers"], correct: 1 },
+      { q: "The main purpose of decomposition is to:", options: ["Increase complexity", "Reduce problem size", "Delete files", "Speed up hardware"], correct: 1 },
+      { q: "Pattern recognition helps to:", options: ["Identify differences only", "Spot similarities in data", "Hide errors", "Format files"], correct: 1 },
+      { q: "Abstraction helps to:", options: ["Include unnecessary details", "Remove unnecessary details", "Add code", "Change hardware"], correct: 1 },
+      { q: "Which of the following shows steps graphically?", options: ["Algorithm", "Flowchart", "Python program", "Register"], correct: 1 },
+      { q: "Which tool uses shapes like arrows and boxes?", options: ["Compiler", "Flowchart", "RAM", "Keyboard"], correct: 1 },
+      { q: "IPO charts help to show:", options: ["Music output", "Input, processing and output", "Patterns only", "Storage type"], correct: 1 },
+      { q: "In problem solving, output means:", options: ["What is given", "What is produced", "Memory size", "CPU speed"], correct: 1 },
+      { q: "In IPO model, process refers to:", options: ["The steps to convert input to output", "Output only", "Input only", "Storage"], correct: 0 },
+      { q: "Which technique focuses on step-by-step instructions?", options: ["Abstraction", "Algorithm design", "Pattern search", "CPU clock"], correct: 1 },
+      { q: "A good algorithm should be:", options: ["Unclear", "Step-wise and logical", "Random", "Non-terminating"], correct: 1 },
+      { q: "Pseudocode is written in:", options: ["Machine code", "Plain English", "Hardware", "Bytes"], correct: 1 },
+      { q: "Flowcharts are mainly used for:", options: ["Painting", "Problem solution design", "Database storage", "CPU cooling"], correct: 1 },
+      { q: "A sequence in an algorithm means:", options: ["Random order", "Step order", "CPU speed", "Data size"], correct: 1 },
+      { q: "The step after understanding a problem is usually:", options: ["Writing solution", "Implementation", "Testing only", "Closing files"], correct: 0 }
+    ]
+  }
+];

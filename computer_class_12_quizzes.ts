@@ -1,0 +1,62 @@
+export const computerClass12Quizzes = [
+  {
+    exercise: "Chapter 1: Computer Systems",
+    questions: [
+      { q: "What is a computer system primarily composed of?", options: ["Hardware and software", "Only hardware", "Only software", "Human resources"], correct: 0 },
+      { q: "Which part of the computer executes instructions?", options: ["CPU", "Monitor", "Keyboard", "Printer"], correct: 0 },
+      { q: "The main memory that is volatile is called:", options: ["RAM", "ROM", "SSD", "Hard disk"], correct: 0 },
+      { q: "ROM is used to store:", options: ["Firmware", "User documents", "Temporary data", "Installed apps"], correct: 0 },
+      { q: "Which of the following is an example of an output device?", options: ["Monitor", "Keyboard", "Mouse", "Scanner"], correct: 0 },
+      { q: "Software that manages hardware is called:", options: ["System software", "Application software", "Games", "Browser"], correct: 0 },
+      { q: "Which of these is NOT an input device?", options: ["Speaker", "Mouse", "Keyboard", "Scanner"], correct: 0 },
+      { q: "BIOS is stored in:", options: ["ROM", "Cloud", "RAM", "Hard disk"], correct: 0 },
+      { q: "What type of memory loses data when power is off?", options: ["Volatile memory", "Non-volatile memory", "Optical memory", "Flash memory"], correct: 0 },
+      { q: "Which device reads information from a CD?", options: ["Optical drive", "USB flash", "Printer", "Monitor"], correct: 0 },
+      { q: "Secondary storage is mainly used for:", options: ["Long-term storage", "Display output", "Primary processing", "Cooling"], correct: 0 },
+      { q: "CPU stands for:", options: ["Central Processing Unit", "Computer Program User", "Central Program Unit", "Core Processing Utility"], correct: 0 },
+      { q: "Which of these is NOT part of the CPU?", options: ["Arithmetic Logic Unit", "Control Unit", "GPU", "Registers"], correct: 2 },
+      { q: "The unit that performs arithmetic and logic operations is:", options: ["ALU", "CU", "RAM", "BIOS"], correct: 0 },
+      { q: "The component that interprets and executes instructions is called:", options: ["Control Unit", "Hard disk", "Monitor", "Mouse"], correct: 0 },
+      { q: "Input devices help in:", options: ["Entering data", "Storing data", "Displaying data", "Printing data"], correct: 0 },
+      { q: "Examples of system software include:", options: ["Operating System", "Word Processor", "Games", "Photo editor"], correct: 0 },
+      { q: "Which memory is faster?", options: ["RAM", "Hard disk", "CD", "DVD"], correct: 0 },
+      { q: "Which of these is a permanent storage?", options: ["ROM", "RAM", "Cache", "Registers"], correct: 0 },
+      { q: "An example of secondary storage is:", options: ["Hard disk", "Cache", "RAM", "Processor"], correct: 0 },
+      { q: "Which device is used for long-term storage?", options: ["Hard disk", "Monitor", "Mouse", "Keyboard"], correct: 0 },
+      { q: "The command center of the computer is:", options: ["CPU", "USB port", "Network card", "Scanner"], correct: 0 },
+      { q: "Input and output devices are also called:", options: ["I/O devices", "System devices", "Core devices", "Logic devices"], correct: 0 },
+      { q: "The number of bytes in a kilobyte is:", options: ["1024", "1000", "512", "2048"], correct: 0 },
+      { q: "Which is non-volatile memory?", options: ["ROM", "RAM", "Cache", "Registers"], correct: 0 }
+    ]
+  },
+  {
+    exercise: "Chapter 2: Data and Analysis",
+    questions: [
+      { q: "What is data?", options: ["Raw facts and figures", "Processed information", "Computer hardware", "Image only"], correct: 0 },
+      { q: "Which of the following is a type of data?", options: ["Numerical", "Sound only", "Text only", "Graphic only"], correct: 0 },
+      { q: "Data analysis primarily helps to:", options: ["Extract insights", "Play games", "Edit videos", "Store music"], correct: 0 },
+      { q: "Structured data is typically organized in:", options: ["Tables/rows", "Music files", "Images", "Random text"], correct: 0 },
+      { q: "Unstructured data includes:", options: ["Videos", "Spreadsheets", "Tables", "Numbers only"], correct: 0 },
+      { q: "Which data is quantitative?", options: ["Numerical", "Text", "Image", "Audio"], correct: 0 },
+      { q: "Categorical data is:", options: ["Descriptive", "Numerical", "Pattern only", "Boolean only"], correct: 0 },
+      { q: "Boolean data holds:", options: ["True or False", "Text", "Sound", "Picture"], correct: 0 },
+      { q: "In data analysis, ‘trends’ show:", options: ["Patterns over time", "Random noise", "Colors", "Fonts"], correct: 0 },
+      { q: "What transforms raw data into information?", options: ["Processing", "Storage", "Printing", "Displaying"], correct: 0 },
+      { q: "Machine learning is a part of:", options: ["Data analysis", "Painting", "Music editing", "Typing"], correct: 0 },
+      { q: "Model building in machine learning helps to:", options: ["Make predictions", "Format text", "Play games", "Compress files"], correct: 0 },
+      { q: "Dataset means a collection of:", options: ["Data", "Hardware", "Programs", "Videos"], correct: 0 },
+      { q: "Data accuracy means data is:", options: ["Correct", "Only numerical", "Only text", "Only images"], correct: 0 },
+      { q: "Which of the following is a step in data analysis?", options: ["Data collection", "Gaming", "Drawing", "Typing"], correct: 0 },
+      { q: "Raw data becomes useful when it is:", options: ["Processed", "Stored only", "Printed only", "Deleted"], correct: 0 },
+      { q: "Data visualization helps to show:", options: ["Patterns", "Errors", "Hardware", "Watch movies"], correct: 0 },
+      { q: "The output after analysis is called:", options: ["Information", "Data only", "Tables only", "Storage"], correct: 0 },
+      { q: "Big data refers to:", options: ["Large datasets", "Small files", "Music folders", "Photos only"], correct: 0 },
+      { q: "Data trends can be shown in:", options: ["Graphs", "Fonts", "Footnotes", "Templates"], correct: 0 },
+      { q: "Cleaning data means:", options: ["Removing errors", "Changing fonts", "Drawing charts", "Printing"], correct: 0 },
+      { q: "Data mining is used to:", options: ["Discover patterns", "Play games", "Edit photos", "Print documents"], correct: 0 },
+      { q: "Which data type holds categories?", options: ["Categorical", "Numerical only", "Color only", "Sound only"], correct: 0 },
+      { q: "A machine learning model learns from:", options: ["Data", "Books only", "Codes only", "Hardware"], correct: 0 },
+      { q: "In analysis, a prediction means:", options: ["Future estimate", "Current text only", "Audio file", "Video"], correct: 0 }
+    ]
+  }
+];

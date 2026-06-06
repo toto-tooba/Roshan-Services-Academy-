@@ -1,0 +1,138 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile and account status",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "displayName": { "type": "string" },
+        "isActivated": { "type": "boolean" },
+        "role": { "type": "string", "enum": ["user", "admin"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email", "isActivated"]
+    },
+    "Payment": {
+      "title": "Payment",
+      "description": "Payment records for course enrollment",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "code": { "type": "string" },
+        "amount": { "type": "number" },
+        "status": { "type": "string", "enum": ["pending", "approved", "rejected"] },
+        "screenshotUrl": { "type": "string" },
+        "verifiedAt": { "type": "string", "format": "date-time" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["email", "code", "amount", "status", "createdAt"]
+    },
+    "SupportChat": {
+      "title": "SupportChat",
+      "description": "Customer support thread metadata",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "userName": { "type": "string" },
+        "userEmail": { "type": "string" },
+        "lastMessage": { "type": "string" },
+        "lastMessageAt": { "type": "string", "format": "date-time" },
+        "unreadByAdminCount": { "type": "number" },
+        "unreadByUserCount": { "type": "number" },
+        "isResolved": { "type": "boolean" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "userName", "userEmail"]
+    },
+    "SupportMessage": {
+      "title": "SupportMessage",
+      "description": "An individual chat message within a support thread",
+      "type": "object",
+      "properties": {
+        "text": { "type": "string" },
+        "senderId": { "type": "string" },
+        "senderName": { "type": "string" },
+        "senderRole": { "type": "string", "enum": ["user", "admin"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["text", "senderId", "senderRole"]
+    },
+    "PromoCode": {
+      "title": "PromoCode",
+      "description": "Discount codes generated from admin panel",
+      "type": "object",
+      "properties": {
+        "code": { "type": "string" },
+        "discountType": { "type": "string", "enum": ["percentage", "fixed"] },
+        "discountValue": { "type": "number" },
+        "usedCount": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["code", "discountType", "discountValue", "usedCount"]
+    },
+    "StudentNote": {
+      "title": "StudentNote",
+      "description": "Study materials uploaded by students or admins",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "pdfUrl": { "type": "string" },
+        "category": { "type": "string" },
+        "uploadedBy": { "type": "string" },
+        "uploaderName": { "type": "string" },
+        "uploaderPhoto": { "type": "string" },
+        "uploaderRole": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "pdfUrl", "category", "uploadedBy", "uploaderName", "createdAt"]
+    },
+    "Testimonial": {
+      "title": "Testimonial",
+      "description": "Student success stories and comments for the landing page",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "role": { "type": "string" },
+        "text": { "type": "string" },
+        "image": { "type": "string" },
+        "stars": { "type": "number" },
+        "sequence": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "role", "text"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profiles"
+    },
+    "/payments/{paymentId}": {
+      "schema": "Payment",
+      "description": "Payment records"
+    },
+    "/promocodes/{promoId}": {
+      "schema": "PromoCode",
+      "description": "Promotional codes for discounts"
+    },
+    "/testimonials/{testimonialId}": {
+      "schema": "Testimonial",
+      "description": "Student success stories and reviews shown on the landing page"
+    },
+    "/support_chats/{chatId}": {
+      "schema": "SupportChat",
+      "description": "Customer support chat threads"
+    },
+    "/support_chats/{chatId}/messages/{messageId}": {
+      "schema": "SupportMessage",
+      "description": "Messages inside a support chat thread"
+    },
+    "/student_notes/{noteId}": {
+      "schema": "StudentNote",
+      "description": "Student or Admin uploaded study notes"
+    }
+  }
+}

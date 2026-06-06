@@ -1,0 +1,62 @@
+export const computerClass9Quizzes = [
+  {
+    exercise: "Chapter 1: Computer Systems",
+    questions: [
+      { q: "A computer system is best described as a combination of:", options: ["hardware and software working together", "hardware only", "software only", "data only"], correct: 0 },
+      { q: "Which of the following is NOT a function of the CPU?", options: ["Fetching instructions", "Executing instructions", "Storing long-term data", "Controlling other components"], correct: 2 },
+      { q: "The Control Unit (CU) is responsible for:", options: ["Performing arithmetic operations", "Managing system memory only", "Directing all operations in the CPU", "Displaying output"], correct: 2 },
+      { q: "Which memory type retains data when power is turned OFF?", options: ["RAM", "Cache", "ROM", "Register"], correct: 2 },
+      { q: "Cache memory improves performance by:", options: ["Increasing storage capacity", "Storing frequently accessed data closer to the CPU", "Deleting unused files", "Backing up data remotely"], correct: 1 },
+      { q: "The smallest unit of data in a computer is called:", options: ["Byte", "Bit", "Word", "Block"], correct: 1 },
+      { q: "Which generation of computers introduced microprocessors?", options: ["First", "Second", "Third", "Fourth"], correct: 3 },
+      { q: "Firmware is typically stored in:", options: ["RAM", "ROM", "Hard Disk", "Cache"], correct: 1 },
+      { q: "An example of output device is:", options: ["Keyboard", "Printer", "Mouse", "Scanner"], correct: 1 },
+      { q: "Which of the following is main memory?", options: ["Hard Disk", "ROM and RAM", "USB Drive", "Cloud Storage"], correct: 1 },
+      { q: "Which of these is a secondary storage device?", options: ["Registers", "RAM", "SSD", "CPU Cache"], correct: 2 },
+      { q: "The main purpose of BIOS is to:", options: ["Edit documents", "Initialize hardware during booting", "Run application software", "Increase storage"], correct: 1 },
+      { q: "Registers are located:", options: ["Inside the CPU", "On the Hard Disk", "On USB", "On Monitor"], correct: 0 },
+      { q: "System software includes:", options: ["Games", "Operating systems and utilities", "Word processors", "Web browsers"], correct: 1 },
+      { q: "Which of the following stores the boot instructions?", options: ["RAM", "ROM", "Cache", "SSD"], correct: 1 },
+      { q: "The process of fetching, decoding and executing is known as:", options: ["Input-Output", "Instruction cycle", "Storage management", "Formatting"], correct: 1 },
+      { q: "Primary memory is also called:", options: ["Secondary memory", "Internal memory", "External memory", "Offline memory"], correct: 1 },
+      { q: "Volatile memory loses data when:", options: ["Power is turned off", "Data is encrypted", "Files are compressed", "System crashes"], correct: 0 },
+      { q: "A collection of bytes typically forms a:", options: ["Bit", "Word", "Pixel", "Cluster"], correct: 1 },
+      { q: "Which device sends data into a computer?", options: ["Printer", "Monitor", "Keyboard", "Speaker"], correct: 2 },
+      { q: "Hard disks are an example of:", options: ["Primary memory", "Secondary memory", "Cache memory", "Registers"], correct: 1 },
+      { q: "GUI stands for:", options: ["Graphical User Interface", "General Use Input", "Guided User Information", "Global Update Interface"], correct: 0 },
+      { q: "The CPU component which performs arithmetic and logic operations is called:", options: ["CU", "ALU", "RAM", "ROM"], correct: 1 },
+      { q: "Which memory is fastest?", options: ["ROM", "Hard Disk", "Cache", "USB Drive"], correct: 2 },
+      { q: "Secondary memory is primarily used for:", options: ["Temporary storage", "Permanent storage", "CPU operations", "Data processing"], correct: 1 }
+    ]
+  },
+  {
+    exercise: "Chapter 2: Computational Thinking & Algorithms",
+    questions: [
+      { q: "Computational thinking primarily involves:", options: ["Logical problem solving", "Memorizing algorithms", "Drawing pictures", "Writing code only"], correct: 0 },
+      { q: "Which of the following is a pillar of computational thinking?", options: ["Registration", "Decomposition", "Installation", "Compilation"], correct: 1 },
+      { q: "Decomposition means:", options: ["Combine parts into a whole", "Break a problem into smaller parts", "Remove all details", "Ignore the problem"], correct: 1 },
+      { q: "Pattern recognition helps to:", options: ["Identify similarities", "Delete information", "Slow down processing", "Copy code"], correct: 0 },
+      { q: "Abstraction in computational thinking is:", options: ["Adding unnecessary details", "Removing irrelevant details", "Writing code first", "Solving hardware issues"], correct: 1 },
+      { q: "An algorithm is defined as a:", options: ["Sequence of steps to solve a problem", "Type of computer", "Hardware component", "Storage device"], correct: 0 },
+      { q: "Which symbol in a flowchart represents a decision?", options: ["Oval", "Rectangle", "Diamond", "Circle"], correct: 2 },
+      { q: "Flowcharts are used to:", options: ["Represent algorithm visually", "Store data", "Write documents", "Measure memory"], correct: 0 },
+      { q: "Pseudocode is used to:", options: ["Execute code", "Represent an algorithm in simple language", "Store output", "Define hardware"], correct: 1 },
+      { q: "IPO stands for:", options: ["Input, Process, Output", "Input, Program, Omission", "Insert, Process, Output", "Identify, Print, Output"], correct: 0 },
+      { q: "In an IPO chart, 'Process' refers to:", options: ["Data entering system", "Transformation of data", "Final result only", "Deletion step"], correct: 1 },
+      { q: "Which is NOT a part of computational thinking?", options: ["Decomposition", "Abstraction", "Guesswork", "Pattern recognition"], correct: 2 },
+      { q: "A flowchart start/stop symbol is:", options: ["Rectangle", "Diamond", "Oval", "Arrow"], correct: 2 },
+      { q: "Algorithms must be:", options: ["Vague", "Clear and finite", "Infinite", "Unknown"], correct: 1 },
+      { q: "An example of pattern recognition is:", options: ["Sorting numbers", "Finding similarities in data", "Wasting time", "Ignoring problem"], correct: 1 },
+      { q: "Which tool helps to map the sequence of steps?", options: ["Spreadsheet", "Flowchart", "Database", "Compiler"], correct: 1 },
+      { q: "Abstraction helps to:", options: ["Focus on important details", "Add complexity", "Remove goal", "Store data"], correct: 0 },
+      { q: "Computational thinking is useful for:", options: ["Everyday problem solving", "Only gaming", "Watching videos", "Taking photos"], correct: 0 },
+      { q: "The arrow in a flowchart shows:", options: ["Flow of control", "Hardware type", "Memory size", "Encryption key"], correct: 0 },
+      { q: "A good algorithm should be:", options: ["Random", "Precise and ordered", "Confusing", "Excessively long"], correct: 1 },
+      { q: "Which is TRUE about flowcharts?", options: ["They are written in binary", "They visually show steps", "They store data", "They are hardware parts"], correct: 1 },
+      { q: "Pseudocode is written in:", options: ["Natural language style", "Machine code", "Assembly language", "Binary"], correct: 0 },
+      { q: "Decomposition is applied to:", options: ["Combine all parts", "Divide into manageable parts", "Encrypt data", "Erase files"], correct: 1 },
+      { q: "Pattern recognition saves time by:", options: ["Repeating tasks", "Identifying recurring elements", "Ignoring steps", "Skipping hard problems"], correct: 1 },
+      { q: "What does a diamond symbol indicate?", options: ["Process", "Decision", "Start", "End"], correct: 1 }
+    ]
+  }
+];

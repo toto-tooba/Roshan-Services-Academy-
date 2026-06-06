@@ -1,5 +1,8 @@
 {
   "name": "Roshan Services Academy",
-  "description": "Premium preparation platform for Pakistan Army, Air Force, Navy, and Police services. Secure notes and interactive practice quizzes.",
-  "requestFramePermissions": []
+  "description": "Pakistan's biggest community of students. Premium platform for Pakistan Army, Air Force, Navy, and Police services with interactive MCQs and secure study notes.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
 }

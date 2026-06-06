@@ -1,0 +1,149 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // ===============================================================
+    // Assumed Data Model
+    // ===============================================================
+    //
+    // Collection: users
+    // Document ID: {userId} (matches auth.uid)
+    // Fields:
+    //   - uid: string (required)
+    //   - email: string (required)
+    //   - displayName: string (optional)
+    //   - isActivated: boolean (required)
+    //   - role: string (required, 'user'|'admin')
+    //   - createdAt: timestamp (required)
+    //
+    // Collection: payments
+    // Document ID: {paymentId}
+    // Fields:
+    //   - uid: string (optional, matches auth.uid if logged in)
+    //   - email: string (required)
+    //   - code: string (required)
+    //   - amount: number (required)
+    //   - status: string (required, 'pending'|'approved'|'rejected')
+    //   - screenshotUrl: string (optional)
+    //   - createdAt: timestamp (required)
+    //   - verifiedAt: timestamp (optional)
+    //
+    // ===============================================================
+
+    // ===============================================================
+    // Helper Functions
+    // ===============================================================
+    
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    function isHardcodedAdmin() {
+      return isAuthenticated() && 
+             (request.auth.token.email == "toobashamas@gmail.com");
+    }
+
+    function isAdmin() {
+      return isHardcodedAdmin() || 
+             (isAuthenticated() && 
+              exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+              get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin');
+    }
+
+    // ===============================================================
+    // Rules
+    // ===============================================================
+
+    match /users/{userId} {
+      allow read: if isOwner(userId) || isHardcodedAdmin() || isAdmin();
+      allow create: if isAuthenticated() && isOwner(userId);
+      allow update: if isOwner(userId) || isHardcodedAdmin() || isAdmin();
+    }
+
+    match /payments/{paymentId} {
+      allow read: if isHardcodedAdmin() || isAdmin() || (isAuthenticated() && resource.data.uid == request.auth.uid);
+      allow create: if isAuthenticated();
+      allow update: if isHardcodedAdmin() || isAdmin() || (isAuthenticated() && resource.data.uid == request.auth.uid);
+      allow delete: if isHardcodedAdmin() || isAdmin();
+    }
+
+    match /classrooms/{classroomId} {
+      allow read: if isAuthenticated() && (resource.data.isPublic == true || request.auth.uid in resource.data.memberIds || resource.data.ownerId == request.auth.uid || isHardcodedAdmin() || isAdmin());
+      allow write: if isAuthenticated();
+
+      match /messages/{messageId} {
+        allow read, write: if isAuthenticated();
+      }
+    }
+
+    match /join_requests/{requestId} {
+      allow read, write: if isAuthenticated();
+    }
+
+    match /quiz_results/{resultId} {
+      allow read: if isAuthenticated() && (resource.data.userId == request.auth.uid || isHardcodedAdmin() || isAdmin());
+      allow create: if isAuthenticated() && request.resource.data.userId == request.auth.uid;
+      allow update, delete: if false;
+    }
+
+    match /articles/{articleId} {
+      allow read: if true;
+      allow write: if isHardcodedAdmin() || isAdmin();
+    }
+
+    match /settings/{settingsId} {
+      allow read: if true;
+      allow write: if isHardcodedAdmin() || isAdmin();
+    }
+
+    match /global_access_codes/{codeId} {
+      allow read: if true;
+      allow create: if isHardcodedAdmin() || isAdmin();
+      allow update: if isAuthenticated();
+    }
+
+    match /promocodes/{promoId} {
+      allow get: if true;
+      allow list, create, delete: if isHardcodedAdmin() || isAdmin();
+      allow update: if isAuthenticated();
+    }
+
+    match /live_classes/{classId} {
+      allow read: if isAuthenticated();
+      allow write: if isHardcodedAdmin() || isAdmin();
+    }
+
+    match /class_requests/{requestId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated();
+      allow update, delete: if isHardcodedAdmin() || isAdmin();
+    }
+
+    match /student_notes/{noteId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated() && request.resource.data.uploadedBy == request.auth.uid;
+      allow update, delete: if isHardcodedAdmin() || isAdmin() || isOwner(resource.data.uploadedBy);
+    }
+
+    match /testimonials/{testimonialId} {
+      allow read: if true;
+      allow write: if isHardcodedAdmin() || isAdmin();
+    }
+
+    match /support_chats/{chatId} {
+      allow read, write: if isHardcodedAdmin() || isAdmin() || isOwner(chatId);
+
+      match /messages/{messageId} {
+        allow read, write: if isHardcodedAdmin() || isAdmin() || isOwner(chatId);
+      }
+    }
+
+    match /test/connection {
+      allow read, write: if true;
+    }
+  }
+}
