@@ -23,6 +23,7 @@ import { cn } from '../lib/utils';
 
 import { useAuth } from '../AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { SupportWidget } from '../components/SupportWidget';
 import { collection, getDocs, query, orderBy } from 'firebase/firestore';
 import { db } from '../firebase';
 import { handleFirestoreError, OperationType } from '../services/databaseService';
@@ -631,6 +632,7 @@ export const LandingPage: React.FC = () => {
           </div>
         </div>
       </footer>
+      <SupportWidget />
     </div>
   );
 };

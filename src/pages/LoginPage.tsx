@@ -23,6 +23,7 @@ import {
 import { useAuth } from '../AuthContext';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { cn } from '../lib/utils';
+import { SupportWidget } from '../components/SupportWidget';
 
 export const LoginPage: React.FC<{ isSignUp?: boolean }> = ({ isSignUp: initialIsSignUp = false }) => {
   const [isSignUp, setIsSignUp] = useState(initialIsSignUp);
@@ -356,6 +357,7 @@ export const LoginPage: React.FC<{ isSignUp?: boolean }> = ({ isSignUp: initialI
           </div>
         </div>
       </motion.div>
+      <SupportWidget />
     </div>
   );
 };

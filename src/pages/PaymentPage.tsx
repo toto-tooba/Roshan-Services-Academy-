@@ -29,6 +29,7 @@ import { storage } from '../firebase';
 import { verifyPaymentReceipt, calculateVerificationScore } from '../services/ocrService';
 import { recordPayment, approvePaymentAndActivateUser, getOrCreatePaymentRefCode } from '../services/databaseService';
 import { useAuth } from '../AuthContext';
+import { SupportWidget } from '../components/SupportWidget';
 
 export const PaymentPage: React.FC = () => {
   const navigate = useNavigate();
@@ -1985,6 +1986,7 @@ export const PaymentPage: React.FC = () => {
           </motion.div>
         )}
       </AnimatePresence>
+      <SupportWidget />
     </div>
   );
 };

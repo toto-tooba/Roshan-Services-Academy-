@@ -135,10 +135,10 @@ service cloud.firestore {
     }
 
     match /support_chats/{chatId} {
-      allow read, write: if isHardcodedAdmin() || isAdmin() || isOwner(chatId);
+      allow read, write: if isHardcodedAdmin() || isAdmin() || isOwner(chatId) || chatId.startsWith("guest_");
 
       match /messages/{messageId} {
-        allow read, write: if isHardcodedAdmin() || isAdmin() || isOwner(chatId);
+        allow read, write: if isHardcodedAdmin() || isAdmin() || isOwner(chatId) || chatId.startsWith("guest_");
       }
     }
 
