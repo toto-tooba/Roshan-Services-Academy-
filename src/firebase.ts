@@ -27,8 +27,20 @@ try {
 }
 
 export const auth = getAuth(app);
-export const db = initializeFirestore(app, {
-  experimentalForceLongPolling: true,
-}, finalConfig.firestoreDatabaseId || '(default)');
+// AI Studio development previews run inside iframe containers where gRPC/WebSockets are blocked,
+// so force long-polling is required there. But in deployed production domains like Vercel,
+// we must use standard WebSockets with automatic fallback to prevent offline connection timeouts.
+const isSandboxEnv = typeof window !== 'undefined' && 
+  (window.location.hostname === 'localhost' || window.location.hostname.endsWith('.run.app'));
+
+const firestoreSettings: any = {};
+
+if (isSandboxEnv) {
+  firestoreSettings.experimentalForceLongPolling = true;
+} else {
+  firestoreSettings.experimentalAutoDetectLongPolling = true;
+}
+
+export const db = initializeFirestore(app, firestoreSettings, finalConfig.firestoreDatabaseId || '(default)');
 export const storage = getStorage(app);
 export const googleProvider = new GoogleAuthProvider();
