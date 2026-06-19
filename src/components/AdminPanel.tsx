@@ -737,7 +737,7 @@ export const AdminPanel: React.FC = () => {
           <p className="text-zinc-400 text-sm md:text-base">Manage global access codes and publish news articles.</p>
         </div>
         
-        <div className="relative flex items-center w-full lg:w-auto bg-[#0a0f1d] border border-white/10 p-1.5 rounded-2xl shrink-0 self-start max-w-full overflow-hidden">
+        <div className="relative flex items-center w-full xl:max-w-xl 2xl:max-w-2xl bg-[#0a0f1d] border border-white/10 p-1.5 rounded-2xl min-w-0 self-start max-w-full overflow-hidden">
           <button 
             type="button"
             onClick={() => scrollTabs('left')}
@@ -749,7 +749,7 @@ export const AdminPanel: React.FC = () => {
 
           <div 
             ref={tabsContainerRef}
-            className="flex overflow-x-auto hide-scrollbar scroll-smooth flex-nowrap flex-1 gap-1 py-0.5 shrink-0"
+            className="flex overflow-x-auto hide-scrollbar scroll-smooth flex-nowrap flex-1 gap-1 py-0.5 min-w-0"
           >
             <button 
               type="button"
