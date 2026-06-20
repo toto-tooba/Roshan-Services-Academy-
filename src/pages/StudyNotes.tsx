@@ -882,20 +882,60 @@ export function StudyNotes() {
         </div>
 
         {/* PDF Document Container */}
-        <div className="flex-1 w-full bg-zinc-950 overflow-hidden relative">
-          {viewerMode === 'direct' ? (
-            <iframe 
-              src={`${selectedPdfUrl}#toolbar=1&navpanes=1&scrollbar=1`}
-              className="w-full h-full border-none absolute inset-0 text-white"
-              title="Native PDF Viewer"
-            />
-          ) : (
-            <iframe 
-              src={`https://docs.google.com/viewer?url=${encodeURIComponent(selectedPdfUrl)}&embedded=true`}
-              className="w-full h-full border-none absolute inset-0 text-white"
-              title="Google Preview PDF Viewer"
-            />
+        <div className="flex-1 w-full bg-zinc-950 overflow-hidden flex flex-col lg:flex-row relative">
+          {selectedPdfUrl.includes('supabase.co') && (
+            <div className="w-full lg:w-96 bg-[#0a0f1d] border-b lg:border-b-0 lg:border-r border-white/10 p-5 overflow-y-auto shrink-0 flex flex-col justify-between z-10">
+              <div>
+                <div className="flex items-center gap-2.5 mb-3">
+                  <span className="flex h-2 w-2 relative">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
+                  </span>
+                  <span className="text-[10px] font-black tracking-widest text-[#c5a059] uppercase">Hosting Notice</span>
+                </div>
+                <h3 className="text-sm font-black text-white uppercase tracking-wider mb-2">Supabase Project Paused/Inactive</h3>
+                <p className="text-xs text-zinc-400 leading-relaxed mb-4">
+                  The academic files of this app are hosted on a Supabase free-tier project (<code className="bg-white/5 text-amber-400 px-1 py-0.5 rounded font-mono break-all text-[11px]">xdcutmgrkzbnivajfcsa</code>). Supabase automatically pauses projects after a period of inactivity.
+                </p>
+                <div className="space-y-3">
+                  <div className="bg-white/5 border border-white/5 rounded-xl p-3">
+                    <p className="text-[11px] font-bold text-[#c5a059] uppercase tracking-wider mb-1">🛠️ How to Unpause & Fix:</p>
+                    <ol className="list-decimal list-inside text-[11px] text-zinc-300 space-y-1.5 text-left">
+                      <li>Log into your <a href="https://supabase.com" target="_blank" rel="noopener noreferrer" className="text-[#c5a059] underline hover:text-[#b3904f]">Supabase Dashboard</a>.</li>
+                      <li>Find & select project <strong className="text-white">xdcutmgrkzbnivajfcsa</strong>.</li>
+                      <li>Click <strong className="text-amber-400">"Restore Project"</strong>.</li>
+                      <li>Wait 1-2 minutes, then refresh this app to open!</li>
+                    </ol>
+                  </div>
+                  <div className="bg-white/5 border border-white/5 rounded-xl p-3">
+                    <p className="text-[11px] font-bold text-zinc-300 uppercase tracking-wider mb-1">💡 For Students/Contributors:</p>
+                    <p className="text-[10px] text-zinc-400 leading-relaxed">
+                      You can also upload active PDF or file links from Google Drive/Dropbox via the "Student Notes" uploader in the categories dropdown!
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="mt-4 pt-4 border-t border-white/5 text-[9px] text-zinc-500 font-mono leading-normal">
+                Connection Status: Paused/Unavailable.
+              </div>
+            </div>
           )}
+
+          <div className="flex-1 relative bg-zinc-950 h-full">
+            {viewerMode === 'direct' ? (
+              <iframe 
+                src={`${selectedPdfUrl}#toolbar=1&navpanes=1&scrollbar=1`}
+                className="w-full h-full border-none absolute inset-0 text-white"
+                title="Native PDF Viewer"
+              />
+            ) : (
+              <iframe 
+                src={`https://docs.google.com/viewer?url=${encodeURIComponent(selectedPdfUrl)}&embedded=true`}
+                className="w-full h-full border-none absolute inset-0 text-white"
+                title="Google Preview PDF Viewer"
+              />
+            )}
+          </div>
 
           {/* Quick Floating Action for any loading speed issues */}
           <div className="absolute bottom-6 right-6 z-10 hidden sm:block">
