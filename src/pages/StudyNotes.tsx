@@ -671,7 +671,6 @@ export function StudyNotes() {
   const navigate = useNavigate();
   const { user, profile } = useAuth();
   const [selectedPdfUrl, setSelectedPdfUrl] = useState<string | null>(null);
-  const [viewerMode, setViewerMode] = useState<'direct' | 'google'>('direct');
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [selectedSubCategory, setSelectedSubCategory] = useState<string | null>(null);
 
@@ -808,96 +807,51 @@ export function StudyNotes() {
     return (
       <div className="min-h-screen bg-[#0a0f1d] flex flex-col font-sans selection:bg-[#c5a059]/30 h-screen overflow-hidden">
         {/* Header bar */}
-        <div className="h-20 bg-[#0a0f1d] border-b border-white/5 px-4 md:px-8 flex flex-col md:flex-row items-center justify-between shrink-0 gap-3 py-2 md:py-0">
-          <div className="flex items-center gap-3 w-full md:w-auto justify-between md:justify-start">
-            <div className="flex items-center gap-3">
-              <button 
-                onClick={() => setSelectedPdfUrl(null)}
-                className="w-10 h-10 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center text-zinc-400 hover:text-white hover:bg-white/10 transition-all group"
-                title="Go back"
-              >
-                <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
-              </button>
-              <div>
-                <h2 className="text-sm font-black text-[#c5a059] uppercase tracking-wider">Roshan Services Academy</h2>
-                <p className="text-xs text-white/50 font-mono truncate max-w-[200px] sm:max-w-xs md:max-w-md" title={fileName}>
-                  {fileName}
-                </p>
-              </div>
+        <div className="h-20 bg-[#0a0f1d] border-b border-white/5 px-4 md:px-8 flex items-center justify-between shrink-0 gap-3">
+          <div className="flex items-center gap-3 min-w-0">
+            <button 
+              onClick={() => setSelectedPdfUrl(null)}
+              className="w-10 h-10 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center text-zinc-400 hover:text-white hover:bg-white/10 transition-all group shrink-0"
+              title="Go back"
+            >
+              <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
+            </button>
+            <div className="min-w-0">
+              <h2 className="text-xs md:text-sm font-black text-[#c5a059] uppercase tracking-wider truncate">Roshan Services Academy</h2>
+              <p className="text-xs text-white/50 font-mono truncate max-w-[180px] sm:max-w-xs md:max-w-md lg:max-w-xl" title={fileName}>
+                {fileName}
+              </p>
             </div>
-            
-            {/* Direct Open in Mobile / Small screens */}
-            <a
-              href={selectedPdfUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="md:hidden flex items-center gap-1.5 px-3 py-2 bg-[#c5a059] text-black font-black text-[10px] uppercase tracking-wider rounded-lg hover:bg-[#b08e4f] active:scale-95 transition-all"
-            >
-              <ExternalLink className="w-3.5 h-3.5" /> Open Direct
-            </a>
           </div>
 
-          {/* Viewer Mode (Segmented Toggle) */}
-          <div className="flex items-center gap-1 bg-white/5 p-1 rounded-xl border border-white/10">
-            <button
-              onClick={() => setViewerMode('direct')}
-              className={`px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-wider transition-all duration-200 ${
-                viewerMode === 'direct'
-                  ? 'bg-[#c5a059] text-[#0a0f1d]'
-                  : 'text-zinc-400 hover:text-white hover:bg-white/5'
-              }`}
-            >
-              ⚡ Direct Viewer (Native)
-            </button>
-            <button
-              onClick={() => setViewerMode('google')}
-              className={`px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-wider transition-all duration-200 ${
-                viewerMode === 'google'
-                  ? 'bg-[#c5a059] text-[#0a0f1d]'
-                  : 'text-zinc-400 hover:text-white hover:bg-white/5'
-              }`}
-            >
-              🌐 Google Reader (Fallback)
-            </button>
-          </div>
-
-          {/* Desktop Control Buttons */}
-          <div className="hidden md:flex items-center gap-3">
+          <div className="flex items-center gap-3 shrink-0">
             <a 
               href={selectedPdfUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 px-4 py-2.5 bg-[#c5a059] hover:bg-[#b5914f] text-[#0a0f1d] rounded-xl hover:-translate-y-0.5 active:translate-y-0 transition-all font-black text-[10px] uppercase tracking-widest shadow-lg shadow-[#c5a059]/10"
+              className="flex items-center gap-2 px-3 md:px-4 py-2 bg-[#c5a059] hover:bg-[#b5914f] text-[#0a0f1d] rounded-xl transition-all font-black text-[10px] uppercase tracking-widest shadow-lg shadow-[#c5a059]/10"
             >
-              <ExternalLink className="w-4 h-4" /> Open PDF in New Tab
+              <ExternalLink className="w-3.5 h-3.5 md:w-4 md:h-4" /> <span className="hidden sm:inline">Open PDF in New Tab</span><span className="inline sm:hidden">Open</span>
             </a>
             
             <button 
               onClick={() => setSelectedPdfUrl(null)}
-              className="flex items-center gap-2 px-4 py-2.5 bg-white/5 border border-white/10 rounded-xl hover:bg-white/10 hover:text-white text-zinc-400 transition-all font-black text-[10px] uppercase tracking-widest"
+              className="flex items-center gap-2 px-3 md:px-4 py-2 bg-white/5 border border-white/10 rounded-xl hover:bg-white/10 hover:text-white text-zinc-400 transition-all font-black text-[10px] uppercase tracking-widest"
             >
-              <X className="w-4 h-4" /> Close
+              <X className="w-3.5 h-3.5 md:w-4 md:h-4" /> <span className="hidden sm:inline">Close</span>
             </button>
           </div>
         </div>
 
         {/* PDF Document Container */}
         <div className="flex-1 w-full bg-zinc-950 overflow-hidden relative">
-          {viewerMode === 'direct' ? (
-            <iframe 
-              src={`${selectedPdfUrl}#toolbar=1&navpanes=1&scrollbar=1`}
-              className="w-full h-full border-none absolute inset-0 text-white"
-              title="Native PDF Viewer"
-            />
-          ) : (
-            <iframe 
-              src={`https://docs.google.com/viewer?url=${encodeURIComponent(selectedPdfUrl)}&embedded=true`}
-              className="w-full h-full border-none absolute inset-0 text-white"
-              title="Google Preview PDF Viewer"
-            />
-          )}
+          <iframe 
+            src={`https://docs.google.com/viewer?url=${encodeURIComponent(selectedPdfUrl)}&embedded=true`}
+            className="w-full h-full border-none absolute inset-0"
+            title="Google Preview PDF Viewer"
+          />
 
-          {/* Quick Floating Action for any loading speed issues */}
+          {/* Quick Floating Action for extra convenience */}
           <div className="absolute bottom-6 right-6 z-10 hidden sm:block">
             <a
               href={selectedPdfUrl}
@@ -906,7 +860,7 @@ export function StudyNotes() {
               className="flex items-center gap-2 px-4 py-3 bg-[#0a0f1d] border border-white/15 hover:border-[#c5a059]/50 rounded-xl text-zinc-300 hover:text-white transition-all text-xs font-medium shadow-2xl backdrop-blur-md"
             >
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-              Having issues? Click to open PDF directly
+              Having issues loading? Click to load PDF directly
               <ExternalLink className="w-4 h-4 text-[#c5a059]" />
             </a>
           </div>
