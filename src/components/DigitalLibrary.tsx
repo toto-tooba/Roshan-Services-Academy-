@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Search, FileText, ExternalLink, BookOpen, X, Layers } from 'lucide-react';
+import { Search, FileText, ExternalLink, BookOpen, X, Layers, ArrowLeft } from 'lucide-react';
 import { LIBRARY_DATA, STATIC_PDF_NOTES } from '../data/libraryData';
 import { db } from '../firebase';
 import { collection, onSnapshot } from 'firebase/firestore';
@@ -12,6 +12,7 @@ interface LibraryItem {
 }
 
 export const DigitalLibrary: React.FC = () => {
+  const [selectedPdfUrl, setSelectedPdfUrl] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedDivision, setSelectedDivision] = useState<string>('All');
   const [studentNotes, setStudentNotes] = useState<LibraryItem[]>([]);
@@ -83,6 +84,87 @@ export const DigitalLibrary: React.FC = () => {
       return matchesSearch && matchesDivision;
     });
   }, [combinedLibrary, searchQuery, selectedDivision]);
+
+  if (selectedPdfUrl) {
+    const fileName = (() => {
+      try {
+        const decoded = decodeURIComponent(selectedPdfUrl);
+        const parts = decoded.split('/');
+        const lastPart = parts[parts.length - 1];
+        const cleanName = lastPart.split('?')[0];
+        if (cleanName && cleanName.toLowerCase().endsWith('.pdf')) {
+          return cleanName;
+        }
+      } catch (e) {
+        // Fallback
+      }
+      return "Official Academy Study Material";
+    })();
+
+    return (
+      <div className="flex flex-col h-[calc(100vh-80px)] -mx-4 -mb-12 md:-mx-10 overflow-hidden bg-[#0a0f1d] absolute inset-0 z-50">
+        {/* Header bar */}
+        <div className="h-20 bg-[#0a0f1d] border-b border-white/5 px-4 md:px-8 flex items-center justify-between shrink-0 gap-3 top-0 sticky z-50">
+          <div className="flex items-center gap-3 min-w-0">
+            <button 
+              onClick={() => setSelectedPdfUrl(null)}
+              className="w-10 h-10 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center text-zinc-400 hover:text-white hover:bg-white/10 transition-all group shrink-0"
+              title="Go back"
+            >
+              <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
+            </button>
+            <div className="min-w-0">
+              <h2 className="text-xs md:text-sm font-black text-[#c5a059] uppercase tracking-wider truncate">Roshan Services Academy</h2>
+              <p className="text-xs text-white/50 font-mono truncate max-w-[180px] sm:max-w-xs md:max-w-md lg:max-w-xl" title={fileName}>
+                {fileName}
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3 shrink-0">
+            <a 
+              href={selectedPdfUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 px-3 md:px-4 py-2 bg-[#c5a059] hover:bg-[#b5914f] text-[#0a0f1d] rounded-xl transition-all font-black text-[10px] uppercase tracking-widest shadow-lg shadow-[#c5a059]/10"
+            >
+              <ExternalLink className="w-3.5 h-3.5 md:w-4 md:h-4" /> <span className="hidden sm:inline">Open PDF in New Tab</span><span className="inline sm:hidden">Open</span>
+            </a>
+            
+            <button 
+              onClick={() => setSelectedPdfUrl(null)}
+              className="flex items-center gap-2 px-3 md:px-4 py-2 bg-white/5 border border-white/10 rounded-xl hover:bg-white/10 hover:text-white text-zinc-400 transition-all font-black text-[10px] uppercase tracking-widest"
+            >
+              <X className="w-3.5 h-3.5 md:w-4 md:h-4" /> <span className="hidden sm:inline">Close</span>
+            </button>
+          </div>
+        </div>
+
+        {/* PDF Document Container */}
+        <div className="flex-1 w-full bg-zinc-950 overflow-hidden relative min-h-[500px]">
+          <iframe 
+            src={`https://docs.google.com/viewer?url=${encodeURIComponent(selectedPdfUrl)}&embedded=true`}
+            className="w-full h-full border-none absolute inset-0"
+            title="Google Preview PDF Viewer"
+          />
+
+          {/* Quick Floating Action for extra convenience */}
+          <div className="absolute bottom-6 right-6 z-10 hidden sm:block">
+            <a
+              href={selectedPdfUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 px-4 py-3 bg-[#0a0f1d] border border-white/15 hover:border-[#c5a059]/50 rounded-xl text-zinc-300 hover:text-white transition-all text-xs font-medium shadow-2xl backdrop-blur-md"
+            >
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+              Having issues loading? Click to load PDF directly
+              <ExternalLink className="w-4 h-4 text-[#c5a059]" />
+            </a>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-8">
@@ -181,14 +263,13 @@ export const DigitalLibrary: React.FC = () => {
                 </div>
 
                 <div className="pt-4 flex gap-3">
-                  <a
-                    href={item.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-[#c5a059] text-black font-black text-xs rounded-xl hover:bg-[#d4b16a] transition-all uppercase tracking-widest shadow-lg shadow-[#c5a059]/5"
+                  <button
+                    type="button"
+                    onClick={() => setSelectedPdfUrl(item.url)}
+                    className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-[#c5a059] text-black font-black text-xs rounded-xl hover:bg-[#d4b16a] transition-all uppercase tracking-widest shadow-lg shadow-[#c5a059]/5 cursor-pointer focus:outline-none"
                   >
                     View PDF <ExternalLink className="w-4 h-4" />
-                  </a>
+                  </button>
                 </div>
               </div>
             </motion.div>

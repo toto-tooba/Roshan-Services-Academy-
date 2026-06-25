@@ -1454,15 +1454,14 @@ export function StudyNotes() {
       return (
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {displayBooks.map((book, index) => (
-            <motion.a
+            <motion.button
               key={index}
-              href={book.url}
-              target="_blank"
-              rel="noopener noreferrer"
+              type="button"
+              onClick={() => setSelectedPdfUrl(book.url)}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
-              className="glass-panel border border-white/10 rounded-[2rem] p-8 flex flex-col items-start group hover:border-[#c5a059]/50 transition-all shadow-2xl text-left relative overflow-hidden bg-white/5"
+              className="glass-panel border border-white/10 rounded-[2rem] p-8 flex flex-col items-start group hover:border-[#c5a059]/50 transition-all shadow-2xl text-left relative overflow-hidden bg-white/5 w-full cursor-pointer focus:outline-none"
             >
               <div className="w-12 h-12 bg-white/5 rounded-xl flex items-center justify-center border border-white/10 group-hover:bg-[#c5a059] group-hover:text-black transition-all shadow-2xl mb-6">
                 <LibrarySquare className="w-6 h-6" />
@@ -1477,7 +1476,7 @@ export function StudyNotes() {
                   <ExternalLink className="w-5 h-5" />
                 </div>
               </div>
-            </motion.a>
+            </motion.button>
           ))}
           {displayBooks.length === 0 && (
             <div className="col-span-full text-center py-24 glass-panel rounded-[3rem] border-2 border-dashed border-white/5 text-zinc-700">
