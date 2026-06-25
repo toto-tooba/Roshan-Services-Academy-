@@ -122,12 +122,6 @@ export const LandingPage: React.FC = () => {
     }
   };
 
-  const handleWheelScroll = (e: React.WheelEvent<HTMLDivElement>, ref: React.RefObject<HTMLDivElement>) => {
-    if (ref.current && e.deltaY !== 0) {
-      ref.current.scrollLeft += e.deltaY;
-    }
-  };
-
   return (
     <div className="min-h-screen bg-[#0a0f1d] text-white font-sans selection:bg-gold-500/30">
       {/* Navigation */}
@@ -252,8 +246,13 @@ export const LandingPage: React.FC = () => {
               {/* Floating element 1 */}
               <motion.div 
                 animate={{ y: [0, -15, 0], opacity: [0.9, 1, 0.9] }}
-                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute top-10 sm:top-10 -left-8 sm:-left-10 bg-[#0a0f1d]/80 backdrop-blur-xl p-3 sm:p-6 rounded-2xl sm:rounded-3xl border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.5)] z-20 hover:scale-105 cursor-default transition-transform"
+                whileHover={{ scale: 1.05 }}
+                transition={{ 
+                  y: { duration: 5, repeat: Infinity, ease: "easeInOut" },
+                  opacity: { duration: 5, repeat: Infinity, ease: "easeInOut" },
+                  scale: { duration: 0.2, ease: "easeOut" }
+                }}
+                className="absolute top-10 sm:top-10 -left-8 sm:-left-10 bg-[#0a0f1d]/80 backdrop-blur-xl p-3 sm:p-6 rounded-2xl sm:rounded-3xl border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.5)] z-20 cursor-default"
               >
                 <div className="flex items-center gap-2 sm:gap-4">
                   <div className="w-8 h-8 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-blue-500/20 flex items-center justify-center">
@@ -269,8 +268,13 @@ export const LandingPage: React.FC = () => {
               {/* Floating element 2 */}
               <motion.div 
                 animate={{ y: [0, 15, 0], opacity: [0.9, 1, 0.9] }}
-                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                className="absolute bottom-12 sm:bottom-20 -right-8 sm:-right-10 bg-[#0a0f1d]/80 backdrop-blur-xl p-3 sm:p-6 rounded-2xl sm:rounded-3xl border border-[#c5a059]/40 shadow-[0_8px_32px_rgba(197,160,89,0.15)] z-20 hover:scale-105 cursor-default transition-transform"
+                whileHover={{ scale: 1.05 }}
+                transition={{ 
+                  y: { duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 },
+                  opacity: { duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 },
+                  scale: { duration: 0.2, ease: "easeOut" }
+                }}
+                className="absolute bottom-12 sm:bottom-20 -right-8 sm:-right-10 bg-[#0a0f1d]/80 backdrop-blur-xl p-3 sm:p-6 rounded-2xl sm:rounded-3xl border border-[#c5a059]/40 shadow-[0_8px_32px_rgba(197,160,89,0.15)] z-20 cursor-default"
               >
                 <div className="flex items-center gap-2 sm:gap-4">
                   <div className="w-8 h-8 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-[#c5a059]/20 flex items-center justify-center">
@@ -349,7 +353,6 @@ export const LandingPage: React.FC = () => {
               onMouseLeave={() => { isHoveringFeatures.current = false; }}
               onTouchStart={() => { isHoveringFeatures.current = true; }}
               onTouchEnd={() => { isHoveringFeatures.current = false; }}
-              onWheel={(e) => handleWheelScroll(e, featuresScrollRef)}
               className="flex gap-4 md:gap-8 overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-8 pt-8 md:py-8 -mx-6 px-6 md:mx-0 md:px-0 scroll-smooth items-stretch"
             >
             {[
@@ -500,7 +503,6 @@ export const LandingPage: React.FC = () => {
               onMouseLeave={() => { isHoveringReviews.current = false; }}
               onTouchStart={() => { isHoveringReviews.current = true; }}
               onTouchEnd={() => { isHoveringReviews.current = false; }}
-              onWheel={(e) => handleWheelScroll(e, reviewsScrollRef)}
               className="flex gap-4 md:gap-8 overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-8 pt-8 md:py-8 -mx-6 px-6 md:mx-0 md:px-0 scroll-smooth items-stretch"
             >
               {/* Ensure we have a repeat of items for visual horizontal wrap around scroll */}

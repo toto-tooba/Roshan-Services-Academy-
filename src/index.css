@@ -15,6 +15,10 @@
 }
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
   body {
     @apply bg-dark-bg text-zinc-100 font-sans antialiased;
     background-image: 

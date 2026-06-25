@@ -11,6 +11,7 @@ import {
 import { 
   doc, 
   getDoc, 
+  getDocFromCache,
   setDoc, 
   updateDoc, 
   serverTimestamp,
@@ -81,14 +82,54 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [loading, setLoading] = useState(true);
 
   const fetchProfile = async (uid: string) => {
+    // 1. Immediately load fast-path cached profile from localStorage if present
+    const localCached = localStorage.getItem(`user_profile_${uid}`);
+    if (localCached) {
+      try {
+        setProfile(JSON.parse(localCached) as UserProfile);
+      } catch (e) {
+        console.warn('Error parsing local cached profile:', e);
+      }
+    }
+
     try {
       const docRef = doc(db, 'users', uid);
-      const docSnap = await getDoc(docRef);
+      let docSnap = null;
       
-      if (docSnap.exists()) {
-        setProfile(docSnap.data() as UserProfile);
+      try {
+        // Try getting from server
+        docSnap = await getDoc(docRef);
+      } catch (networkErr: any) {
+        console.warn('Network getDoc failed/offline. Trying Firestore offline cache...', networkErr);
+        // Fallback to offline cached doc
+        try {
+          docSnap = await getDocFromCache(docRef);
+        } catch (cacheErr) {
+          console.error('Firestore cache getDoc failed too:', cacheErr);
+        }
+      }
+
+      if (docSnap && docSnap.exists()) {
+        const profileData = docSnap.data() as UserProfile;
+        setProfile(profileData);
+        localStorage.setItem(`user_profile_${uid}`, JSON.stringify(profileData));
+      } else if (!docSnap) {
+        // We are offline/network blocked and no firestore cache doc was found.
+        // If we don't even have localStorage, set up a generic offline fallback profile to keep the UI interactive.
+        if (!localCached) {
+          const fallbackProfile: UserProfile = {
+            uid,
+            email: auth.currentUser?.email || '',
+            isActivated: true, // Let them browse available items offline
+            role: 'user',
+            displayName: auth.currentUser?.displayName || 'Student',
+            photoURL: auth.currentUser?.photoURL || '',
+            createdAt: new Date().toISOString(),
+          };
+          setProfile(fallbackProfile);
+        }
       } else {
-        // Create initial profile
+        // Doc snap exists but doesn't exist in backend/cache: means account needs a new profile
         const newProfile: UserProfile = {
           uid,
           email: auth.currentUser?.email || '',
@@ -98,11 +139,18 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           photoURL: auth.currentUser?.photoURL || '',
           createdAt: serverTimestamp(),
         };
-        await setDoc(docRef, newProfile);
-        setProfile(newProfile);
+        try {
+          await setDoc(docRef, newProfile);
+          setProfile(newProfile);
+          localStorage.setItem(`user_profile_${uid}`, JSON.stringify(newProfile));
+        } catch (writeErr) {
+          console.error('Failed to save initial profile on server (offline/blocked):', writeErr);
+          setProfile(newProfile);
+          localStorage.setItem(`user_profile_${uid}`, JSON.stringify(newProfile));
+        }
       }
     } catch (err) {
-      console.error('Error fetching profile:', err);
+      console.error('Error fetching profile in safe top-level wrapper:', err);
     }
   };
 

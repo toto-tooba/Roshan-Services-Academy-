@@ -8,7 +8,8 @@ import {
   getDocs, 
   serverTimestamp,
   setDoc,
-  getDoc
+  getDoc,
+  getDocFromCache
 } from 'firebase/firestore';
 import { db, auth } from '../firebase';
 
@@ -112,13 +113,37 @@ export const approvePaymentAndActivateUser = async (paymentId: string, email: st
 export const checkUserActivation = async (uid: string) => {
   const path = `users/${uid}`;
   try {
-    const userSnap = await getDoc(doc(db, 'users', uid));
-    if (userSnap.exists()) {
+    let userSnap = null;
+    try {
+      userSnap = await getDoc(doc(db, 'users', uid));
+    } catch (networkErr) {
+      console.warn("checkUserActivation: network fetch failed. Trying Firestore local cache...", networkErr);
+      try {
+        userSnap = await getDocFromCache(doc(db, 'users', uid));
+      } catch (cacheErr) {
+        console.error("checkUserActivation: Firestore cache fetch failed too:", cacheErr);
+      }
+    }
+
+    if (userSnap && userSnap.exists()) {
       return userSnap.data().isActivated === true;
     }
+
+    // Fallback to localStorage cache
+    try {
+      const cached = localStorage.getItem(`user_profile_${uid}`);
+      if (cached) {
+        const parsed = JSON.parse(cached);
+        return parsed.isActivated === true;
+      }
+    } catch (localErr) {
+      console.warn("Failed to check localStorage for activation status:", localErr);
+    }
+
     return false;
   } catch (error) {
-    handleFirestoreError(error, OperationType.GET, path);
+    console.error("checkUserActivation encountered an unexpected error:", error);
+    return false; // Safely return false instead of disrupting the flow
   }
 };
 
