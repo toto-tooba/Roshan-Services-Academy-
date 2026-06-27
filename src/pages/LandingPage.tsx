@@ -27,13 +27,14 @@ import { SupportWidget } from '../components/SupportWidget';
 import { collection, getDocs, query, orderBy } from 'firebase/firestore';
 import { db } from '../firebase';
 import { handleFirestoreError, OperationType } from '../services/databaseService';
+const AHMED_MURAD_IMAGE = "https://i.postimg.cc/fy3d9H1C/684981309-18587690563010875-6233797090791793515-n.jpg";
 
 const REVIEWS = [
   {
     name: "Ahmed Murad",
     role: "Navy Cadet",
     text: "The intelligence test preparation here is unmatched. I cleared my initial tests with ease thanks to the simulation environment.",
-    image: "https://i.postimg.cc/dV5RfSGJ/4a009630-e20b-4577-8a36-7190d638559a.jpg"
+    image: AHMED_MURAD_IMAGE
   },
   {
     name: "Sana Malik",
@@ -78,7 +79,13 @@ export const LandingPage: React.FC = () => {
         const q = query(collection(db, 'testimonials'), orderBy('sequence', 'asc'));
         const snapshot = await getDocs(q);
         if (!snapshot.empty) {
-          const fetched = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+          const fetched = snapshot.docs.map(doc => {
+            const data = doc.data();
+            if (data.name === "Ahmed Murad") {
+              return { id: doc.id, ...data, image: AHMED_MURAD_IMAGE };
+            }
+            return { id: doc.id, ...data };
+          });
           setReviewsList(fetched);
         }
       } catch (error) {

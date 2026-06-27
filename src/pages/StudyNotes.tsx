@@ -671,6 +671,7 @@ export function StudyNotes() {
   const navigate = useNavigate();
   const { user, profile } = useAuth();
   const [selectedPdfUrl, setSelectedPdfUrl] = useState<string | null>(null);
+  const [viewerMode, setViewerMode] = useState<'google' | 'native'>('google');
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [selectedSubCategory, setSelectedSubCategory] = useState<string | null>(null);
 
@@ -824,6 +825,34 @@ export function StudyNotes() {
             </div>
           </div>
 
+          {/* Compact / Responsive segmented control for viewer type selection */}
+          <div className="flex items-center gap-1 bg-white/5 p-0.5 md:p-1 rounded-xl border border-white/10 text-[9px] md:text-[10px] uppercase font-black tracking-wider shrink-0">
+            <button
+              onClick={() => setViewerMode('google')}
+              className={`px-2 md:px-3 py-1 md:py-1.5 rounded-lg transition-all duration-200 ${
+                viewerMode === 'google'
+                  ? 'bg-[#c5a059] text-[#0a0f1d]'
+                  : 'text-zinc-400 hover:text-white'
+              }`}
+              title="Best for quick rendering on all devices"
+            >
+              <span className="hidden sm:inline">🌐 Google Reader</span>
+              <span className="inline sm:hidden">🌐 Google</span>
+            </button>
+            <button
+              onClick={() => setViewerMode('native')}
+              className={`px-2 md:px-3 py-1 md:py-1.5 rounded-lg transition-all duration-200 ${
+                viewerMode === 'native'
+                  ? 'bg-[#c5a059] text-[#0a0f1d]'
+                  : 'text-zinc-400 hover:text-white'
+              }`}
+              title="Best for large books and syllabus PDFs (>25MB)"
+            >
+              <span className="hidden sm:inline">⚡ Native Viewer (Large Files)</span>
+              <span className="inline sm:hidden">⚡ Native</span>
+            </button>
+          </div>
+
           <div className="flex items-center gap-3 shrink-0">
             <a 
               href={selectedPdfUrl}
@@ -845,11 +874,19 @@ export function StudyNotes() {
 
         {/* PDF Document Container */}
         <div className="flex-1 w-full bg-zinc-950 overflow-hidden relative">
-          <iframe 
-            src={`https://docs.google.com/viewer?url=${encodeURIComponent(selectedPdfUrl)}&embedded=true`}
-            className="w-full h-full border-none absolute inset-0"
-            title="Google Preview PDF Viewer"
-          />
+          {viewerMode === 'google' ? (
+            <iframe 
+              src={`https://docs.google.com/viewer?url=${encodeURIComponent(selectedPdfUrl)}&embedded=true`}
+              className="w-full h-full border-none absolute inset-0 bg-zinc-950"
+              title="Google Preview PDF Viewer"
+            />
+          ) : (
+            <iframe 
+              src={`${selectedPdfUrl}#toolbar=1&navpanes=1&scrollbar=1`}
+              className="w-full h-full border-none absolute inset-0 text-white bg-zinc-950"
+              title="Native PDF Viewer"
+            />
+          )}
 
           {/* Quick Floating Action for extra convenience */}
           <div className="absolute bottom-6 right-6 z-10 hidden sm:block">
@@ -857,10 +894,10 @@ export function StudyNotes() {
               href={selectedPdfUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 px-4 py-3 bg-[#0a0f1d] border border-white/15 hover:border-[#c5a059]/50 rounded-xl text-zinc-300 hover:text-white transition-all text-xs font-medium shadow-2xl backdrop-blur-md"
+              className="flex items-center gap-2 px-4 py-3 bg-[#0a0f1d] border border-white/15 hover:border-[#c5a059]/50 rounded-xl text-zinc-300 hover:text-white transition-all text-xs font-medium shadow-2xl backdrop-blur-md animate-bounce"
             >
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-              Having issues loading? Click to load PDF directly
+              Having issues? Switch to ⚡ Native above or open directly
               <ExternalLink className="w-4 h-4 text-[#c5a059]" />
             </a>
           </div>

@@ -10,6 +10,8 @@ import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { db, storage } from '../firebase';
 import { handleFirestoreError, OperationType } from '../services/databaseService';
 
+const AHMED_MURAD_IMAGE = "https://i.postimg.cc/fy3d9H1C/684981309-18587690563010875-6233797090791793515-n.jpg";
+
 export const AdminPanel: React.FC = () => {
   const { profile } = useAuth();
   const [activeTab, setActiveTab] = useState<'codes' | 'promocodes' | 'articles' | 'live-classes' | 'payments' | 'support' | 'testimonials'>('codes');
@@ -128,7 +130,14 @@ export const AdminPanel: React.FC = () => {
     try {
       const q = query(collection(db, 'testimonials'), orderBy('sequence', 'asc'));
       const snapshot = await getDocs(q);
-      setTestimonials(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+      const fetched = snapshot.docs.map(doc => {
+        const data = doc.data();
+        if (data.name === "Ahmed Murad") {
+          return { id: doc.id, ...data, image: AHMED_MURAD_IMAGE };
+        }
+        return { id: doc.id, ...data };
+      });
+      setTestimonials(fetched);
     } catch (error: any) {
       handleFirestoreError(error, OperationType.GET, 'testimonials');
       setTestmError('Failed to load testimonials from Firestore.');
@@ -220,7 +229,7 @@ export const AdminPanel: React.FC = () => {
           name: "Ahmed Murad",
           role: "Navy Cadet",
           text: "The intelligence test preparation here is unmatched. I cleared my initial tests with ease thanks to the simulation environment.",
-          image: "https://i.postimg.cc/dV5RfSGJ/4a009630-e20b-4577-8a36-7190d638559a.jpg",
+          image: AHMED_MURAD_IMAGE,
           stars: 5,
           sequence: 10
         },
