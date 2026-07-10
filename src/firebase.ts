@@ -31,9 +31,15 @@ export const auth = getAuth(app);
 // so force long-polling is required there. But in deployed production domains like Vercel,
 // we must use standard WebSockets with automatic fallback to prevent offline connection timeouts.
 const isSandboxEnv = typeof window !== 'undefined' && 
-  (window.location.hostname === 'localhost' || window.location.hostname.endsWith('.run.app'));
+  (window.location.hostname === 'localhost' || 
+   window.location.hostname.endsWith('.run.app') ||
+   window.location.hostname.includes('run.app') ||
+   window.location.hostname.includes('aistudio') ||
+   window.self !== window.top);
 
-const firestoreSettings: any = {};
+const firestoreSettings: any = {
+  useFetchStreams: false
+};
 
 if (isSandboxEnv) {
   firestoreSettings.experimentalForceLongPolling = true;

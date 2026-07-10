@@ -14,6 +14,25 @@ interface LibraryItem {
 export const DigitalLibrary: React.FC = () => {
   const [selectedPdfUrl, setSelectedPdfUrl] = useState<string | null>(null);
   const [viewerMode, setViewerMode] = useState<'google' | 'native'>('google');
+
+  useEffect(() => {
+    if (selectedPdfUrl) {
+      const lowerUrl = selectedPdfUrl.toLowerCase();
+      if (
+        lowerUrl.includes('supabase.co') || 
+        lowerUrl.includes('drive.google.com') ||
+        lowerUrl.includes('book') || 
+        lowerUrl.includes('guide') || 
+        lowerUrl.includes('preparation') ||
+        lowerUrl.includes('paper')
+      ) {
+        setViewerMode('native');
+      } else {
+        setViewerMode('google');
+      }
+    }
+  }, [selectedPdfUrl]);
+
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedDivision, setSelectedDivision] = useState<string>('All');
   const [studentNotes, setStudentNotes] = useState<LibraryItem[]>([]);

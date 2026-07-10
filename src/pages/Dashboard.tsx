@@ -754,6 +754,24 @@ export const Dashboard: React.FC<{ defaultView?: string }> = ({ defaultView = 'd
     const [selectedPdfUrl, setSelectedPdfUrl] = useState<string | null>(null);
     const [viewerMode, setViewerMode] = useState<'google' | 'native'>('google');
 
+    useEffect(() => {
+      if (selectedPdfUrl) {
+        const lowerUrl = selectedPdfUrl.toLowerCase();
+        if (
+          lowerUrl.includes('supabase.co') || 
+          lowerUrl.includes('drive.google.com') ||
+          lowerUrl.includes('book') || 
+          lowerUrl.includes('guide') || 
+          lowerUrl.includes('preparation') ||
+          lowerUrl.includes('paper')
+        ) {
+          setViewerMode('native');
+        } else {
+          setViewerMode('google');
+        }
+      }
+    }, [selectedPdfUrl]);
+
     if (selectedPdfUrl) {
       const fileName = (() => {
         try {

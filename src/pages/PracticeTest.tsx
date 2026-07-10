@@ -137,49 +137,76 @@ export const PracticeTest: React.FC = () => {
     }
     
     // Advanced selection logic: 
-    // 1. Ensure at least one question from each category/chapter
-    // 2. Prioritize questions the user hasn't seen recently
+    // 1. Shuffled round-robin over chapters to pick 25 questions evenly distributed.
+    // 2. In each chapter, prioritize questions that are NOT in seenIds.
+    // 3. Keep each set of 25 MCQs extremely diverse and representative.
     
     let selectedQuestions: Question[] = [];
+    const pickedTexts = new Set<string>();
     
-    // First pass: Take one from every exercise to ensure coverage
-    quizSet.forEach(exercise => {
-      // Find questions in this exercise. Try to pick one not seen recently.
-      const unseenInExercise = exercise.questions.filter(q => !seenIds.includes(q.q));
-      const pool = unseenInExercise.length > 0 ? unseenInExercise : exercise.questions;
-      const randomQ = pool[Math.floor(Math.random() * pool.length)];
-      if (randomQ) selectedQuestions.push(randomQ);
+    // Shuffle the chapters first to ensure random starting point and even distribution
+    const shuffledChapters = [...quizSet].sort(() => Math.random() - 0.5);
+    
+    // Map to keep track of available questions per chapter (excluding what we already picked)
+    const chapterQuestionsMap = new Map<number, Question[]>();
+    shuffledChapters.forEach((chapter, index) => {
+      chapterQuestionsMap.set(index, [...chapter.questions]);
     });
     
-    // Flatten all questions for the remaining slots
-    const allQuestionsFlat = quizSet.flatMap(chapter => chapter.questions);
+    let chapterIndex = 0;
+    let consecutiveSkips = 0;
+    const totalChapters = shuffledChapters.length;
     
-    // Remaining slots to reach 25
-    let remainingSlots = Math.max(0, 25 - selectedQuestions.length);
+    // Total number of questions available across all chapters
+    const totalAvailableQs = quizSet.flatMap(c => c.questions).length;
+    const targetQCount = Math.min(25, totalAvailableQs);
     
-    if (remainingSlots > 0) {
-      // Filter out those already picked in first pass
-      const pickedTexts = selectedQuestions.map(q => q.q);
-      const otherQuestionsPool = allQuestionsFlat.filter(q => !pickedTexts.includes(q.q));
+    while (selectedQuestions.length < targetQCount && consecutiveSkips < totalChapters) {
+      const currentChapterQuestions = chapterQuestionsMap.get(chapterIndex);
       
-      // Of the remaining pool, prioritize those not seen recently
-      const unseenPool = otherQuestionsPool.filter(q => !seenIds.includes(q.q));
+      if (currentChapterQuestions && currentChapterQuestions.length > 0) {
+        // Find questions in this chapter that have NOT been picked yet in this test
+        const unpickedInChapter = currentChapterQuestions.filter(q => !pickedTexts.has(q.q));
+        
+        if (unpickedInChapter.length > 0) {
+          // Prioritize unseen questions (not in seenIds)
+          const unseenInChapter = unpickedInChapter.filter(q => !seenIds.includes(q.q));
+          const pool = unseenInChapter.length > 0 ? unseenInChapter : unpickedInChapter;
+          
+          // Pick a random question from the pool
+          const randomIndex = Math.floor(Math.random() * pool.length);
+          const selectedQ = pool[randomIndex];
+          
+          selectedQuestions.push(selectedQ);
+          pickedTexts.add(selectedQ.q);
+          
+          // Remove the selected question from the chapter map to avoid duplicates
+          chapterQuestionsMap.set(
+            chapterIndex, 
+            currentChapterQuestions.filter(q => q.q !== selectedQ.q)
+          );
+          
+          consecutiveSkips = 0; // Reset skips on successful pick
+        } else {
+          consecutiveSkips++;
+        }
+      } else {
+        consecutiveSkips++;
+      }
       
-      // Sort pool: unseen first, then seen
-      const sortedPool = [...unseenPool.sort(() => Math.random() - 0.5), ...otherQuestionsPool.filter(q => seenIds.includes(q.q)).sort(() => Math.random() - 0.5)];
-      
-      selectedQuestions = [...selectedQuestions, ...sortedPool.slice(0, remainingSlots)];
+      // Move to the next chapter in round-robin fashion
+      chapterIndex = (chapterIndex + 1) % totalChapters;
     }
     
-    // Final shuffle so the "one from each chapter" ones aren't always at the start
+    // Final shuffle so the questions from the same chapter are not adjacent
     const finalShuffled = [...selectedQuestions];
     for (let i = finalShuffled.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [finalShuffled[i], finalShuffled[j]] = [finalShuffled[j], finalShuffled[i]];
     }
     
-    // Update seen questions in storage
-    const newSeenIds = [...new Set([...seenIds, ...finalShuffled.map(q => q.q)])].slice(-100); // Keep last 100
+    // Update seen questions in storage - increase tracking size to 300 for better cycle freshness
+    const newSeenIds = [...new Set([...seenIds, ...finalShuffled.map(q => q.q)])].slice(-300);
     localStorage.setItem(storageKey, JSON.stringify(newSeenIds));
     
     setQuestions(finalShuffled);

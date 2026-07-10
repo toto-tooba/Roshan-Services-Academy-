@@ -24,7 +24,7 @@ const App: React.FC = () => {
             path="/dashboard" 
             element={
               <ProtectedRoute>
-                <Dashboard />
+                <Dashboard key="dashboard" />
               </ProtectedRoute>
             } 
           />
@@ -32,7 +32,7 @@ const App: React.FC = () => {
             path="/study-notes" 
             element={
               <ProtectedRoute>
-                <Dashboard defaultView="study-notes" />
+                <Dashboard key="study-notes" defaultView="study-notes" />
               </ProtectedRoute>
             } 
           />

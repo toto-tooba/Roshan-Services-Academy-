@@ -672,6 +672,24 @@ export function StudyNotes() {
   const { user, profile } = useAuth();
   const [selectedPdfUrl, setSelectedPdfUrl] = useState<string | null>(null);
   const [viewerMode, setViewerMode] = useState<'google' | 'native'>('google');
+
+  useEffect(() => {
+    if (selectedPdfUrl) {
+      const lowerUrl = selectedPdfUrl.toLowerCase();
+      if (
+        lowerUrl.includes('supabase.co') || 
+        lowerUrl.includes('drive.google.com') ||
+        lowerUrl.includes('book') || 
+        lowerUrl.includes('guide') || 
+        lowerUrl.includes('preparation') ||
+        lowerUrl.includes('paper')
+      ) {
+        setViewerMode('native');
+      } else {
+        setViewerMode('google');
+      }
+    }
+  }, [selectedPdfUrl]);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [selectedSubCategory, setSelectedSubCategory] = useState<string | null>(null);
 
