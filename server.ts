@@ -579,6 +579,20 @@ async function startServer() {
       appType: 'spa',
     });
     app.use(vite.middlewares);
+
+    // Serve index.html with Vite transforms for all non-API/non-file client routes
+    app.get('*', async (req, res, next) => {
+      if (req.originalUrl.startsWith('/api') || req.originalUrl.includes('.')) {
+        return next();
+      }
+      try {
+        const template = fs.readFileSync(path.resolve('index.html'), 'utf-8');
+        const html = await vite.transformIndexHtml(req.originalUrl, template);
+        res.status(200).set({ 'Content-Type': 'text/html' }).send(html);
+      } catch (e) {
+        next(e);
+      }
+    });
   } else {
     app.use(express.static('dist'));
     app.get('*', (req, res) => {
